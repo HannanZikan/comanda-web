@@ -1,0 +1,67 @@
+
+ .pesquisa-Funcionarios {
+    margin-left: 250px;
+    margin-top: 40px;
+ }
+
+ .pesquisa-Funcionarios input {
+     height: 25px;
+     width: 400px;
+     
+ }
+
+ .butom-Funcionarios{
+     background-color: blue;
+     color: white;
+     height: 28px;
+     margin-left: 1px;
+     width: 60px;
+     font-weight: 900;
+     margin-bottom: -9px;
+     border-radius: 5px;
+     font-size: 10px;
+     
+     
+ }
+ button{
+     background-color: blue;
+     margin-left: 400px;
+     height: 30px;
+     width: 130px;
+     border: none;
+     color: white;
+     border-radius: 5px;
+ }
+
+ .butom:hover{
+     cursor: pointer;
+
+ }
+
+ button:hover{
+    cursor: pointer;
+
+}
+ table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 80%;
+    margin-left: 200px;
+    margin-top: 25px;
+  }
+  
+  td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #dddddd;
+  }
+
+  table img {
+      width: 30px;
+      height: 30px;
+      background-color: yellowgreen;
+  }
