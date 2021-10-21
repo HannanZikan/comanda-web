@@ -6,46 +6,43 @@ import { BiLogIn, BsSearch } from 'react-icons/bs';
 
 
 
-function  Listapedidos () {
+function  ListarMesas () {
     return (
        <div className="body"> 
        
         
             <div className="title">
-                <h1>Lista de Pedidos</h1>
-            
+                <h1>Listar Mesas</h1>
+           
             
             
             <div className="pesquisa">
 
           <input 
           type="text"
-          placeholder=" pesquisar pedido"
+          placeholder=" pesquisar mesa"
           
        />
       
-      <BsSearch className="butom"/>
-      <button >Preparar</button>   
-      </div> 
+        <BsSearch className="butom"/>
+        <button>Listar</button>
       </div>
+      
+           
+            </div> 
+
             <div className="table">
             <table>
   <tr>
     <th>#</th>
-    <th>Clientes</th>
-    <th>Itens</th>
-    <th>Comentário</th>
-    <th>Qtde.</th>
+    <th>Número da Mesa</th>
     <th>Ações</th>
   </tr>
   <tr>
-    <td>9999</td>
-    <td>Fulano de Tal</td>
-    <td>X comanda</td>
-    <td>sem maionese</td>
-    <td>2</td>
-    <td><img src="icon-edit.png"></img></td>
+    <td>999</td>
+    <td>7495</td>
     
+    <td><img src="icon-edit.png"></img></td>
   </tr>
   
 </table>
@@ -63,4 +60,4 @@ function  Listapedidos () {
         // {//* </BrowserRouter> */}
     )
 }
-export default Listapedidos;
+export default ListarMesas;

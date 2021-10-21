@@ -16,7 +16,7 @@ function  ListaFuncionarios () {
             
             
             
-            <div className="pesquisa-Funcionarios">
+            <div className="pesquisa">
 
           <input 
           type="text"
@@ -24,7 +24,7 @@ function  ListaFuncionarios () {
           
        />
       
-        <BsSearch className="butom-Funcionarios"/>
+        <BsSearch className="butom"/>
         <button>Adicionar</button>
       </div>
       

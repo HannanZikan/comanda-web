@@ -1,76 +1,136 @@
-.title {
-    
-    margin-left: 100px;
-    margin-top: 100px;
-    text-align: center;
-    font-size: 20px;
-    font-weight: 900;
-    
+/* .Navbar{
+  background-color: #3b4a4d;
+  height: 52px; 
+}
+
+span {
+  padding-right: 50px;
+  
+  color: honeydew;
+  font-size: 30px;
+  
 }
 
 
- .pesquisa {
-    margin-left: 250px;
-    margin-top: 40px;
- }
-
- .pesquisa input {
-     height: 25px;
-     width: 400px;
+ul{
+  position: relative;
+  background:#dcdcdc;
+  display: inline-block;
+  margin-top: 20px;
+  padding: 0px;
+  height: 400px;
+  color: honeydew;
+  
+}
+ul li {
+  
+  padding-right: 50px;
+  padding-bottom: 20px;
+  margin-top: 0px;
+  font-size: 18px;
+  margin-left: 0px;
+  width: 112px;
+  display: block;
+  background: #c4c4c4;
+  color: black; 
      
- }
 
-  .butom-01{
-     background-color: blue;
-     color: white;
-     height: 28px;
-     margin-left: 1px;
-     width: 60px;
-     font-weight: 900;
-     margin-bottom: -9px;
-     border-radius: 5px;
-     font-size: 10px;
-     
-     
- } 
-  button{
-     background-color: blue;
-     margin-left: 10px; 
-     height: 30px;
-     width: 60px;
-     border: none;
-     color: white;
-     border-radius: 5px;
-  }
- .butom:hover{
-     cursor: pointer;
+ 
+}
 
- }
 
- button:hover{
-    cursor: pointer;
+
+ul ul {
+   position: absolute; 
+  min-width: 200px;
+  display: none;
+  background: lightgrey;
+}
+ul ul li{
+  display: block;
+  background: #e3e3e3;
+  color: black;
 
 }
- table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 80%;
-    margin-left: 200px;
-    margin-top: 25px;
-  }
-  
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
 
-  table img {
-      width: 30px;
-      height: 30px;
-      background-color: yellowgreen;
-  }
+ul li:hover ul { 
+   display: block; 
+} 
+
+.barra {
+   background-color: orangered;
+   display: block;
+   position: absolute;
+   width: 12%;
+   height: 213px;
+  color: orangered;
+}
+.pesquisa-pedido  {
+  margin-left: 50px;
+  /* margin-top: 40px; */
+/* }
+
+.pesquisa-pedido  input {
+   height: 25px;
+   margin-left: 200px;
+   width: 400px;
+  margin-top: 50px;
+   
+}
+
+.butom-pedido{
+   background-color: blue;
+   color: white;
+   height: 28px;
+   margin-left: 1px;
+   width: 60px;
+   font-weight: 900;
+   margin-bottom: -9px;
+   border-radius: 5px;
+   font-size: 10px;
+   
+   
+}
+.buton-pedidos{
+   background-color: blue;
+   margin-left: 1100px;
+   height: 30px;
+   width: 130px;
+   margin-top: -90px;
+   border: none;
+   color: white;
+   border-radius: 5px;
+}
+
+.butom-pedido:hover{
+   cursor: pointer;
+
+}
+
+.buton-pedidos:hover{
+  cursor: pointer;
+
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+  margin-left: 200px;
+  margin-top: 25px;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+table img {
+    width: 30px;
+    height: 30px;
+    background-color: yellowgreen;
+}  */

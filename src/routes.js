@@ -9,6 +9,9 @@ import ListaPedidos from './ListaPedidos/ListaPedidos';
 import RegistrarPagamento from './RegistrarPagamento/RegistrarPagamento';
 import AtualizarItem from './AtualizarItem/AtualizarItem';
 import ListaFuncionarios from './ListaFuncionarios/ListaFuncionarios';
+import CadastrarFuncionario from './CadastrarFuncionário/CadastrarFuncionario';
+import ListaMesas from './ListaMesas/ListaMesas';
+import AtualizarFuncionario from './AtualizarFuncionario/AtualizarFuncionario';
 
 
 
@@ -48,8 +51,20 @@ export default () =>{
             <Route exact path="/ListaFuncionarios">
                  <ListaFuncionarios/>
             </Route>
+            <Route exact path="/ CadastrarFuncionario">
+                 < CadastrarFuncionario/>
+            </Route>
+
+            <Route exact path="/ ListaMesas">
+                 < ListaMesas/>
+            </Route>
+
+            <Route exact path="/AtualizarFuncionario">
+                 < AtualizarFuncionario/>
+            </Route>
+
           </Switch>
-       
+     
       
      </BrowserRouter>
    
