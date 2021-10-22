@@ -1,0 +1,21 @@
+.Navbar{
+    background-color: #3b4a4d;
+    height: 52px; 
+}
+
+span {
+    padding-right: 50px;
+    color: honeydew;
+    font-size: 30px;  
+}
+
+
+
+.barra {
+    background-color: orangered;
+    display: block;
+    position: absolute;
+    width: 12%;
+    height: 213px;
+   color: orangered;
+}

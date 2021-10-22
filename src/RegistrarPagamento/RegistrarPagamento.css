@@ -1,4 +1,74 @@
+.Navbar{
+    background-color: #3b4a4d;
+    height: 52px; 
+}
 
+span {
+    padding-right: 50px;
+    color: honeydew;
+    font-size: 30px;  
+}
+
+
+ul{
+    position: relative;
+    background:#dcdcdc;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 0px;
+    height: 400px;
+    color: honeydew;
+    
+}
+ul li {
+    
+    padding-right: 50px;
+    padding-bottom: 20px;
+    margin-top: 0px;
+    width: 100px;
+    font-size: 18px;
+    margin-left: 0px;
+    width: 112px;
+    display: block;
+    background: #c4c4c4;
+    color: black; 
+       
+  
+   
+}
+
+
+
+ul ul {
+     position: absolute; 
+    min-width: 200px;
+    display: none;
+    background: lightgrey;
+}
+ul ul li{
+    display: block;
+    background: #e3e3e3;
+    color: black;
+
+}
+
+ ul li:hover ul { 
+     display: block; 
+    
+ } 
+
+ li{
+     cursor: pointer;
+ }
+
+
+
+.barra  {
+    background-color: orangered;
+    margin-top: 16px;
+    width: 50px;
+   color: orangered;
+}
  .pesq input{
      margin-left: 200px;
      margin-top: 8px;

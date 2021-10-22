@@ -1,15 +1,54 @@
 import React from 'react'
-import  '../CadastrarFuncionário/CadastrarFuncionario'
-import {BrowserRouter, Route} from 'react-router-dom'
+import  '../CadastrarFuncionário/CadastrarFuncionario.css'
+import {BrowserRouter, Link, Route} from 'react-router-dom'
+import '../Menu/Menu.css'
+
 
 
 
 function  AtualizarFuncionario() {
+    
     return (
         
+                
        <div className="body"> 
-        
+                  <div className="Navbar">
+ <span>Comanda inteligente</span>
+
+
+
+<div className="Dropdown">
+    <ul>
+    
+        <li  >AtualizarFuncionario</li>
+        <li>Atualizar Item</li>
+        <li> Registrar Pagamento</li>
+        <li>Cadastrar Mesas</li>
+        <li> Cardapio</li>
+        <li>Cadastrar Funcionários</li>
+        <li>Cadastrar Item no Cardapio</li>
+        <li> Listar Pedidos</li>
+        <li>Listar Mesas</li>
+        <li>Listar Funcionários</li>
+        <li>Comandas Fechadas</li>
+            
+
+      
+
+    </ul>
+    
+          <div className="barra">
+         <h1>oi</h1> 
+    </div>
+
+    </div>
+    
+    
+</div>
+
+ 
               <div className="title">
+             
                 <h1>Atualizar Funcionário</h1>
             </div>   
 
@@ -54,12 +93,17 @@ function  AtualizarFuncionario() {
             
                 <button className="butom01">Cancelar</button>                
                  <button className="butom02">Adicionar</button>
-            
-        </div>
+
+
+                 
+               
+
+
+       </div> 
             
         
 
-        
+      
 
         // </Route>
         // {//* </BrowserRouter> */}
