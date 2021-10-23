@@ -1,6 +1,5 @@
 import React from 'react';
-import {Switch, Route, BrowserRouter } from 'react-router-dom';
-
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import CadastrarItemCardapio from './CadastrarItemCardapio/CadastrarItemCardapio';
 import TelaLogin from './TelaLogin/TelaLogin';
@@ -13,63 +12,60 @@ import CadastrarFuncionario from './CadastrarFuncionário/CadastrarFuncionario';
 import ListaMesas from './ListaMesas/ListaMesas';
 import AtualizarFuncionario from './AtualizarFuncionario/AtualizarFuncionario';
 
+export default () => {
 
+     return (
+          <BrowserRouter>
 
-
-export default () =>{
-
-    return (
-        <BrowserRouter>
-    
-        {/* <Main/>
+               {/* <Main/>
         <Cadastro/>   */}
- 
-        <Switch>
-             <Route exact path="/">
-                 <TelaLogin/>
-            </Route>
-            
-            <Route exact path="/CadastrarItemCardapio">
-                 <CadastrarItemCardapio/>
-            </Route>
 
-            <Route exact path="/Cardapio">
-                 <Cardapio/>
-            </Route>
-            <Route exact path="/ListaPedidos">
-                 <ListaPedidos/>
-            </Route>
+               <Switch>
+                    <Route exact path="/">
+                         <TelaLogin />
+                    </Route>
 
-            <Route exact path="/RegistraPagamento">
-                 <RegistrarPagamento/>
-            </Route>
+                    <Route exact path="/CadastrarItemCardapio">
+                         <CadastrarItemCardapio />
+                    </Route>
 
-            <Route exact path="/AtualizarItem">
-                 <AtualizarItem/>
-            </Route>
+                    <Route exact path="/Cardapio">
+                         <Cardapio />
+                    </Route>
+                    <Route exact path="/ListaPedidos">
+                         <ListaPedidos />
+                    </Route>
 
-            <Route exact path="/ListaFuncionarios">
-                 <ListaFuncionarios/>
-            </Route>
-            <Route exact path="/ CadastrarFuncionario">
-                 < CadastrarFuncionario/>
-            </Route>
+                    <Route exact path="/RegistraPagamento">
+                         <RegistrarPagamento />
+                    </Route>
 
-            <Route exact path="/ ListaMesas">
-                 < ListaMesas/>
-            </Route>
+                    <Route exact path="/AtualizarItem">
+                         <AtualizarItem />
+                    </Route>
 
-            <Route exact path="/AtualizarFuncionario">
-                 < AtualizarFuncionario/>
-            </Route>
+                    <Route exact path="/ListaFuncionarios">
+                         <ListaFuncionarios />
+                    </Route>
+                    <Route exact path="/ CadastrarFuncionario">
+                         < CadastrarFuncionario />
+                    </Route>
 
-          </Switch>
-     
-      
-     </BrowserRouter>
-   
+                    <Route exact path="/ ListaMesas">
+                         < ListaMesas />
+                    </Route>
 
-    
-    )
-        
+                    <Route exact path="/AtualizarFuncionario">
+                         < AtualizarFuncionario />
+                    </Route>
+
+               </Switch>
+
+
+          </BrowserRouter>
+
+
+
+     )
+
 }
