@@ -1,6 +1,6 @@
 import React from 'react'
 import  '../ListaFuncionarios/ListaFuncionarios.css'
-import {BrowserRouter, Route} from 'react-router-dom'
+import {Link,BrowserRouter, Route} from 'react-router-dom'
 import { BiLogIn, BsSearch } from 'react-icons/bs';
 
 
@@ -17,17 +17,17 @@ function  Listapedidos () {
 <div className="Dropdown">
     <ul>
     
-        <li  >AtualizarFuncionario</li>
-        <li>Atualizar Item</li>
-        <li> Registrar Pagamento</li>
-        <li>Cadastrar Mesas</li>
-        <li> Cardapio</li>
-        <li>Cadastrar Funcionários</li>
-        <li>Cadastrar Item no Cardapio</li>
-        <li> Listar Pedidos</li>
-        <li>Listar Mesas</li>
-        <li>Listar Funcionários</li>
-        <li>Comandas Fechadas</li>
+    <li> <Link to ="/AtualizarFuncionario" >AtualizarFuncionario</Link></li>     
+       
+       <li><Link to ="/AtualizarItem">Atualizar Item</Link></li>
+       <li><Link to ="/RegistrarPagamento"> Registrar Pagamento</Link></li>
+       <li><Link to ="/Cardapio"> Cardapio</Link></li>
+       <li><Link to ="/CadastrarFuncionario">Cadastrar Funcionários</Link></li>
+       <li><Link to = "/CadastrarItemCardapio">Cadastrar Item no Cardapio</Link></li>
+       <li><Link to ="/ListaPedidos"> Listar Pedidos</Link></li>
+       <li><Link to ="ListaMesas">Listar Mesas</Link></li>
+       <li><Link to ="/ListaFuncionarios">Listar Funcionários</Link></li>
+       
             
 
       
