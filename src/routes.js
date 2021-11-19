@@ -11,6 +11,8 @@ import ListaFuncionarios from './ListaFuncionarios/ListaFuncionarios';
 import CadastrarFuncionario from './CadastrarFuncionário/CadastrarFuncionario';
 import ListaMesas from './ListaMesas/ListaMesas';
 import AtualizarFuncionario from './AtualizarFuncionario/AtualizarFuncionario';
+import TelaInicial from './TelaInicial/TelaInicial';
+import DadosEstabelecimento from './DadosEstabelecimento/DadosEstabelecimento';
 
 export default () => {
 
@@ -58,7 +60,14 @@ export default () => {
                     <Route exact path="/AtualizarFuncionario">
                          < AtualizarFuncionario />
                     </Route>
+                    
+                    <Route exact path="/TelaInicial">
+                         < TelaInicial />
+                    </Route>
 
+                    <Route exact path="/DadosEstabelecimento">
+                         < DadosEstabelecimento />
+                    </Route>
                </Switch>
 
 

@@ -1,78 +1,290 @@
-import React from 'react'
-import '../CadastrarFuncionário/CadastrarFuncionario.css'
-import { Link, Switch, BrowserRouter, Route } from 'react-router-dom'
-import '../Menu/Menu.css'
-import '../routes'
+import * as React from 'react';
+import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiDrawer from '@mui/material/Drawer';
+import Box from '@mui/material/Box';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import  Button  from '@mui/material/Button';
+import Badge from '@mui/material/Badge';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Link from '@mui/material/Link';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import { mainListItems, secondaryListItems } from '../components/menu-admin';
 
 
 
 
-function AtualizarFuncionario() {
-
-        return (
-                <div className="body">
-                        <div className="Navbar">
-                                <span>Comanda inteligente</span>
-                                <div className="Dropdown">
-                                        <ul>
-                                                <li><Link to="/AtualizarFuncionario" >AtualizarFuncionario</Link></li>
-                                                <li><Link to="/AtualizarItem">Atualizar Item</Link></li>
-                                                <li><Link to="/RegistrarPagamento"> Registrar Pagamento</Link></li>
-                                                <li><Link to="/Cardapio"> Cardapio</Link></li>
-                                                <li><Link to="/CadastrarFuncionario">Cadastrar Funcionários</Link></li>
-                                                <li><Link to="/CadastrarItemCardapio">Cadastrar Item no Cardapio</Link></li>
-                                                <li><Link to="/ListaPedidos"> Listar Pedidos</Link></li>
-                                                <li><Link to="ListaMesas">Listar Mesas</Link></li>
-                                                <li><Link to="/ListaFuncionarios">Listar Funcionários</Link></li>
-                                        </ul>
-                                </div>
-                        </div>
-                        <div className="title">
-                                <h1>Atualizar Funcionário</h1>
-                        </div>
-
-                        <div className="nome">
-                                <h4>Nome</h4>
-                                <input type="text">
-                                </input>
-                        </div>
-
-                        <div className="Função">
-                                <h4>Função</h4>
-                                <input type="text">
-                                </input>
-                        </div>
-
-                        <div className="E-mail">
-                                <h4>E-mail</h4>
-                                <input type="text">
-                                </input>
-                        </div>
-
-                        <div className="TipoUsuario">
-                                <h4>Tipo de Usuário</h4>
-                                <input type="text">
-                                </input>
-                        </div>
-
-                        <div className="Senha">
-                                <h4>Nova Senha</h4>
-                                <input type="text">
-                                </input>
-                        </div>
-
-                        <div className="ConfirmarSenha">
-                                <h4>Confirmar Nova Senha</h4>
-                                <input type="text">
-                                </input>
-                        </div>
-
-                        <button className="butom01">Cancelar</button>
-                        <button className="butom02">Adicionar</button>
-                </div>
-
-                // </Route>
-                // {//* </BrowserRouter> */}
-        )
+function Copyright(props) {
+  return (
+    <Typography variant="body2" color="text.secondary" align="center" {...props}>
+      {'Copyright © '}
+      <Link color="inherit" href="https://mui.com/">
+        Your Website
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
 }
-export default AtualizarFuncionario;
+
+const drawerWidth = 240;
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    '& .MuiDrawer-paper': {
+      // position: 'relative',
+      whiteSpace: 'nowrap',
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      boxSizing: 'border-box',
+      ...(!open && {
+        overflowX: 'hidden',
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
+        }),
+        width: theme.spacing(7),
+        [theme.breakpoints.up('sm')]: {
+          width: theme.spacing(9),
+        },
+      }),
+    },
+  }),
+);
+
+const mdTheme = createTheme();
+
+function DashboardContent() {
+  const [open, setOpen] = React.useState(true);
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
+  return (
+    <ThemeProvider theme={mdTheme}>
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppBar  position="absolute" style={{backgroundColor: "#3B4A4D"}} open={open}>
+          <Toolbar
+            sx={{
+              pr: '24px', // keep right padding when drawer closed
+            }}
+          >
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="open drawer"
+              onClick={toggleDrawer}
+              sx={{
+                 marginRight: '36px',
+                ...(open && { display: 'none' }),
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              sx={{ flexGrow: 1 }}
+            >
+              Comanda Inteligente
+            </Typography>
+            <IconButton color="inherit">
+             <img src="logo-6.png" width="80px" height="50px"></img>
+            </IconButton>
+          </Toolbar>
+        </AppBar>
+        <Drawer variant="permanent" open={open}>
+          <Toolbar
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+              
+              px: [1],
+            }}
+          >
+            <IconButton onClick={toggleDrawer}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </Toolbar>
+          <Divider />
+          <List>{mainListItems}</List>
+          <Divider />
+          <List>{secondaryListItems}</List>
+        </Drawer>
+        <Box
+          component="main"
+          sx={{
+            backgroundColor: (theme) =>
+              theme.palette.mode === 'light'
+                ? theme.palette.grey[100]
+                : theme.palette.grey[900],
+            flexGrow: 1,
+            height: '100vh',
+            overflow: 'auto',
+          }}
+        >
+          <Toolbar />
+          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+            
+        <Grid container spacing={3}>
+        <Grid item sm={12}>
+        <Paper
+          style={{
+            height:450,
+            marginLeft:150,
+            marginTop:50,
+          }}
+        >
+        <h2
+          style={{
+            marginTop:10,
+            marginLeft:380,
+          }}
+        
+        >Atualizar Funcionário</h2>
+        <Grid container spacing={3}>         
+        <Grid item xs={12} sm={11}>
+          <TextField
+            style={{marginLeft:20,marginTop:30}}
+            required
+            id="firstName"
+            name="NomeCompleto"
+            label="Nome Completo"
+            fullWidth
+            autoComplete="given-name"
+            // variant="standard"
+          />
+        </Grid>
+        <Grid  item xs={12} sm={4}>
+          <TextField
+            style={{marginLeft:20,marginTop:20}}
+            required
+            id="lastName"
+            name="funcao"
+            label="Função"
+            fullWidth
+            autoComplete="family-name"
+            // variant="standard"
+          />
+        </Grid>
+        <Grid  item xs={12} sm={4}>
+          <TextField
+            style={{marginLeft:10,marginTop:20}}
+            required
+            id="lastName"
+            name="email"
+            label="E-mail"
+            fullWidth
+            autoComplete="family-name"
+            // variant="standard"
+          />
+        </Grid>
+        <Grid  item xs={12} sm={3}>
+          <TextField
+            style={{marginLeft:10, marginTop:20}}
+            required
+            id="lastName"
+            name="TipoUsuario"
+            label="Tipo de Usuário"
+            fullWidth
+            autoComplete="family-name"
+            // variant="standard"
+          />
+        </Grid>
+        <Grid  item xs={12} sm={5}>
+          <TextField
+            style={{marginLeft:15, marginTop:25}}
+            required
+            id="lastName"
+            name="NovaSenha"
+            label="Nova Senha"
+            fullWidth
+            autoComplete="family-name"
+            // variant="standard"
+          />
+        </Grid>
+        <Grid  item xs={12} sm={5}>
+          <TextField
+            style={{marginLeft:10, marginTop:25}}
+            required
+            id="lastName"
+            name="ConfirmarNovaSenha"
+            label="Confirmar Nova Senha"
+            fullWidth
+            autoComplete="family-name"
+            // variant="standard"
+          />
+        </Grid>
+        </Grid>
+        <Button variant="outlined" color="success"
+
+          style={{
+            marginTop:25,
+            marginLeft:180,
+          }}
+        
+        >Atualizar</Button>
+        <Button variant="outlined" color="secondary"
+        
+        style={{
+          marginTop:25,
+          marginLeft:300,
+        
+        
+        }}
+        
+        >Cancelar</Button>
+
+        </Paper>
+
+        </Grid>
+
+                     
+
+            </Grid>
+            
+          </Container>
+        </Box>
+      </Box>
+    </ThemeProvider>
+  );
+}
+
+export default function Dashboard() {
+  return <DashboardContent />;
+}

@@ -32,6 +32,7 @@ ul li {
     display: block;
     background: #c4c4c4;
     color: black; 
+    
        
   
    
@@ -44,6 +45,7 @@ ul ul {
     min-width: 200px;
     display: none;
     background: lightgrey;
+    text-decoration: none;
 }
 ul ul li{
     display: block;

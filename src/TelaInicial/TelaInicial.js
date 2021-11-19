@@ -7,10 +7,8 @@ import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import  Button  from '@mui/material/Button';
 import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
@@ -19,9 +17,7 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { mainListItems, secondaryListItems } from '../components/menu-admin';
-
-
+import { mainListItems, secondaryListItems } from '../components/menu-admin'
 
 
 function Copyright(props) {
@@ -160,111 +156,14 @@ function DashboardContent() {
         >
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            
-        <Grid container spacing={3}>
-        <Grid item sm={12}>
-        <Paper
-          style={{
-            height:310,
-            marginLeft:150,
-            marginTop:50,
-          }}
-        >
-        <h2
-          style={{
-            marginTop:10,
-            marginLeft:380,
-          }}
-        
-        >Atualizar Item</h2>
-        <Grid container spacing={3}>         
-        <Grid item xs={12} sm={4}>
-          <TextField
-            style={{marginLeft:10,marginTop:30}}
-            required
-            id="firstName"
-            name="Nome"
-            label="Nome"
-            fullWidth
-            autoComplete="given-name"
-            // variant="standard"
-          />
-        </Grid>
-        <Grid  item xs={12} sm={4}>
-          <TextField
-            style={{marginLeft:5,marginTop:30}}
-            required
-            id="lastName"
-            name="Valor"
-            label="Valor"
-            fullWidth
-            autoComplete="family-name"
-            // variant="standard"
-          />
-        </Grid>
-        <Grid  item xs={12} sm={4}>
-          <TextField
-            style={{marginLeft:-5,marginTop:30}}
-            required
-            id="lastName"
-            name="Status"
-            label="Status"
-            fullWidth
-            autoComplete="family-name"
-            // variant="standard"
-          />
-        </Grid>
-        <Grid  item xs={12} sm={6}>
-          <TextField
-            style={{marginLeft:10, marginTop:20}}
-            required
-            id="lastName"
-            name="Descricao"
-            label="Descrição"
-            fullWidth
-            autoComplete="family-name"
-            // variant="standard"
-          />
-        </Grid>
-        <Grid  item xs={12} sm={6}>
-          <TextField
-            style={{marginLeft:-5, marginTop:20}}
-            required
-            id="lastName"
-            name="imagem"
-            label="Selecionar Imagem"
-            fullWidth
-            autoComplete="family-name"
-            // variant="standard"
-          />
-        </Grid>
-        
-        </Grid>
-        <Button variant="outlined" color="success"
-
-          style={{
-            marginTop:25,
-            marginLeft:180,
-          }}
-        
-        >Cadastrar</Button>
-        <Button variant="outlined" color="secondary"
-        
-        style={{
-          marginTop:25,
-          marginLeft:300,
-        
-        
-        }}
-        
-        >Cancelar</Button>
-
-        </Paper>
-
-        </Grid>
-
-                     
-
+            <Grid container spacing={3}>
+             
+            <Grid container spacing={3}>
+                        
+              <img src='logo-6.png' width="400px" height="300px" style={{marginLeft:"420px" , marginTop:"150px" }} />        
+              
+            </Grid>
+              
             </Grid>
             
           </Container>
@@ -277,5 +176,3 @@ function DashboardContent() {
 export default function Dashboard() {
   return <DashboardContent />;
 }
-
-

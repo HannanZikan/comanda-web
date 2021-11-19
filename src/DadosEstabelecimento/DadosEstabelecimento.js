@@ -165,7 +165,7 @@ function DashboardContent() {
         <Grid item sm={12}>
         <Paper
           style={{
-            height:310,
+            height:350,
             marginLeft:150,
             marginTop:50,
           }}
@@ -176,63 +176,51 @@ function DashboardContent() {
             marginLeft:380,
           }}
         
-        >Atualizar Item</h2>
+        >Dados do Estabelecimento</h2>
         <Grid container spacing={3}>         
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12} sm={2}>
           <TextField
-            style={{marginLeft:10,marginTop:30}}
+            style={{marginLeft:20,marginTop:30}}
             required
             id="firstName"
-            name="Nome"
-            label="Nome"
+            name="ID"
+            label="ID"
             fullWidth
             autoComplete="given-name"
             // variant="standard"
           />
         </Grid>
-        <Grid  item xs={12} sm={4}>
+        <Grid  item xs={12} sm={8}>
           <TextField
-            style={{marginLeft:5,marginTop:30}}
+            style={{marginLeft:30,marginTop:30}}
             required
             id="lastName"
-            name="Valor"
-            label="Valor"
+            name="nomefantasia"
+            label="Nome Fantasia"
             fullWidth
             autoComplete="family-name"
             // variant="standard"
           />
         </Grid>
-        <Grid  item xs={12} sm={4}>
+        <Grid  item xs={12} sm={5}>
           <TextField
-            style={{marginLeft:-5,marginTop:30}}
+            style={{marginLeft:10,marginTop:20}}
             required
             id="lastName"
-            name="Status"
-            label="Status"
+            name="codigoacesso"
+            label="Código de Acesso"
             fullWidth
             autoComplete="family-name"
             // variant="standard"
           />
         </Grid>
-        <Grid  item xs={12} sm={6}>
+        <Grid  item xs={12} sm={5}>
           <TextField
             style={{marginLeft:10, marginTop:20}}
             required
             id="lastName"
-            name="Descricao"
-            label="Descrição"
-            fullWidth
-            autoComplete="family-name"
-            // variant="standard"
-          />
-        </Grid>
-        <Grid  item xs={12} sm={6}>
-          <TextField
-            style={{marginLeft:-5, marginTop:20}}
-            required
-            id="lastName"
-            name="imagem"
-            label="Selecionar Imagem"
+            name="nomeresponsavel"
+            label="Nome do Responsável"
             fullWidth
             autoComplete="family-name"
             // variant="standard"
@@ -277,5 +265,3 @@ function DashboardContent() {
 export default function Dashboard() {
   return <DashboardContent />;
 }
-
-
