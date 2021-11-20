@@ -20,6 +20,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from '../components/menu-admin';
+import { TextFieldsTwoTone } from '@mui/icons-material';
 
 
 
@@ -164,98 +165,92 @@ function DashboardContent() {
 						<Grid container spacing={3}>
 							<Grid item sm={12}>
 								<Paper
-									style={{
-										height: 350,
+									style={{ 
 										marginLeft: 150,
 										marginTop: 50,
-									}}
-								>
-									<h2
-										style={{
-											marginTop: 10,
-											marginLeft: 380,
-										}}
+									}}>
 
-									>Dados do Estabelecimento</h2>
-									<Grid container spacing={3}>
-										<Grid item xs={12} sm={2}>
+									<h2 style={{
+										marginTop: 10,
+										marginBottom: 50,
+										display: "flex",
+										justifyContent: "center",
+									}}>Dados do Estabelecimento</h2>
+
+									<Grid container spacing={3}
+										style={{
+											display: "flex",
+											justifyContent: "center",
+											paddingLeft: 15,
+											paddingRight: 15,
+										}}>
+											
+										<Grid item xs={3}>
 											<TextField
-												style={{ marginLeft: 20, marginTop: 30 }}
 												id="idEstabelecimento"
 												name="ID"
 												label="ID"
-												fullWidth
-												autoComplete="given-name"
+												defaultValue="#1548"
+												size="small"
 												InputProps={{
 													readOnly: true,
-												  }}
-											/>
+												}} />
 										</Grid>
-										<Grid item xs={12} sm={8}>
+										<Grid item xs={9}>
 											<TextField
-												style={{ marginLeft: 30, marginTop: 30 }}
 												id="nomeFantasia"
 												name="nomefantasia"
 												label="Nome Fantasia"
+												defaultValue="Comanda Lanches"
 												fullWidth
-												autoComplete="family-name"
+												size="small"
 												InputProps={{
 													readOnly: true,
-												  }}
-											/>
+												}} />
 										</Grid>
-										<Grid item xs={12} sm={5}>
+										<Grid item xs={4}>
 											<TextField
-												style={{ marginLeft: 10, marginTop: 20 }}
 												id="CodigoAcesso"
 												name="codigoacesso"
 												label="Código de Acesso"
+												defaultValue="4763"
 												fullWidth
-												autoComplete="family-name"
+												size="small"
 												InputProps={{
 													readOnly: true,
-												  }}
-											/>
+												}} />
 										</Grid>
-										<Grid item xs={12} sm={5}>
+										<Grid item xs={8}>
 											<TextField
-												style={{ marginLeft: 10, marginTop: 20 }}
 												id="nomeResponsavel"
 												name="nomeresponsavel"
 												label="Nome do Responsável"
+												defaultValue="Gustavo Augusto de Souza"
 												fullWidth
 												autoComplete="family-name"
-											/>
+												size="small" />
 										</Grid>
 
 									</Grid>
-									<Button variant="outlined" color="success"
-
-										style={{
-											marginTop: 25,
-											marginLeft: 180,
-										}}
-
-									>Cadastrar</Button>
-									<Button variant="outlined" color="secondary"
-
-										style={{
-											marginTop: 25,
-											marginLeft: 300,
-
-
-										}}
-
-									>Cancelar</Button>
-
+									<Grid 
+										style={{ 
+											marginTop: 20,
+											paddingBottom: 20,
+											display: "flex",
+											justifyContent: "space-around",
+										}}>
+										<Button variant="contained" color="error"
+											style={{
+												marginTop: 25,
+											}}>Cancelar</Button>
+										<Button variant="contained" color="success"
+											style={{
+												marginTop: 25,
+											}}>Cadastrar</Button>
+									</Grid>
 								</Paper>
-
 							</Grid>
-
-
-
 						</Grid>
-
 					</Container>
 				</Box>
 			</Box>

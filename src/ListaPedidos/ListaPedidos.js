@@ -23,8 +23,12 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import TextField from '@mui/material/TextField';
-
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 
 
 
@@ -89,22 +93,29 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
+const theme = createTheme({
+    palette: {
+        edit: {
+            main: '#FFCA2C',
+            contrastText: '#fff'
+        },
+    },
+});
+
 function DashboardContent() {
     const [open, setOpen] = React.useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
     };
 
-    function createData(name, calories, fat, carbs, protein) {
-        return { name, calories, fat, carbs, protein };
+    function createData(id, cliente, itens, comentarios, quantidade, mesa) {
+        return { id, cliente, itens, comentarios, quantidade, mesa };
     }
 
     const rows = [
-        createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-        createData('Ice cream sandwich', 237, 9.0, 37, 4.3,),
-        // createData('Eclair', 262, 16.0, 24, 6.0),
-        // createData('Cupcake', 305, 3.7, 67, 4.3),
-        // createData('Gingerbread', 356, 16.0, 49, 3.9),
+        createData('#1548', 'Roberto Guimarães', ['X-Tudo', 'Coca-Cola'], ['Sem Maionese', 'Com gelo e limão'], [1, 1], '15'),
+        createData('#1549', 'Matheus Ramos', ['Pizza de Calabresa', 'Fanta Laranja'], ['Sem comentários', 'Com gelo'], [1, 2], '03'),
+        createData('#1550', 'Pedro Matias', ['Poção de Batata Frita', 'Cuba Libre'], ['Bastante cheddar', 'Sem Comentários'], [1, 3], '09'),
     ];
 
     return (
@@ -181,136 +192,125 @@ function DashboardContent() {
                             <Grid item sm={12}>
                                 <Paper
                                     style={{
-                                        height: 310,
                                         marginLeft: 150,
                                         marginTop: 50,
-                                    }}
-                                >
-                                    <h2
-                                        style={{
-                                            marginTop: 10,
-                                            marginLeft: 380,
-                                        }}
+                                    }}>
 
-                                    >Lista de Pedidos</h2>
-                                    <Grid item xs={12} sm={4}>
-                                        <TextField
-                                            style={{ marginLeft: 40, marginTop: 30 }}
-                                            required
-                                            id="firstName"
-                                            name="PesquisarPedido"
-                                            label="Pesquisar Pedido"
-                                            fullWidth
-                                            autoComplete="given-name"
-                                        // variant="standard"
-                                        />
+                                    <h2 style={{
+                                        marginTop: 10,
+                                        display: "flex",
+                                        justifyContent: "center",
+                                    }}>Lista de Pedidos</h2>
+
+                                    <Grid container xs={11}
+                                        style={{
+                                            marginLeft: 40,
+                                            marginTop: 30,
+                                            flexDirection: "row",
+                                        }}>
+
+                                        <Paper
+                                            component="form"
+                                            sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+                                        >
+                                            <InputBase
+                                                sx={{ ml: 1, flex: 1 }}
+                                                placeholder="Pesquisar Pedido"
+                                                inputProps={{ 'aria-label': 'pesquisar pedido' }}
+                                            />
+                                            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+                                            <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+                                                <SearchIcon />
+                                            </IconButton>
+                                        </Paper>
                                     </Grid>
-                                    <Button variant="outlined" color="success"
-
-                                        style={{
-                                            marginTop: -80,
-                                            marginLeft: 380,
-                                        }}
-
-                                    >Pesquisar</Button>
 
 
                                     <TableContainer component={Paper}>
                                         <Table sx={{ minWidth: 600, }} aria-label="a dense table"
                                             style={{
-                                                marginLeft: 20,
                                                 marginTop: 50,
-                                                width: 950,
-
-
-                                            }}
-                                        >
-
-
+                                                marginBottom: 20,
+                                                paddingLeft: 15,
+                                                paddingRight: 15,
+                                            }}>
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell>#</TableCell>
-                                                    <TableCell align="right">Nome</TableCell>
-                                                    <TableCell align="right">Função</TableCell>
-                                                    <TableCell align="right">Usuário</TableCell>
-                                                    <TableCell align="right">Tipo</TableCell>
-                                                    <TableCell align="right">Ações</TableCell>
+                                                    <TableCell align="left"></TableCell>
+                                                    <TableCell align="left">Cliente</TableCell>
+                                                    <TableCell align="left">Itens</TableCell>
+                                                    <TableCell align="left">Comentários</TableCell>
+                                                    <TableCell align="left">Qtde.</TableCell>
+                                                    <TableCell align="left">Mesa</TableCell>
+                                                    <TableCell align="left">Ações</TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
                                                 {rows.map((row) => (
                                                     <TableRow
-                                                        key={row.name}
+                                                        key={row.id}
                                                         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                                     >
-                                                        <TableCell component="th" scope="row">
-                                                            {row.name}
+                                                        <TableCell component="th" scope="row" align="left">
+                                                            {row.id}
                                                         </TableCell>
-                                                        <TableCell align="right">{row.calories}</TableCell>
-                                                        <TableCell align="right">{row.fat}</TableCell>
-                                                        <TableCell align="right">{row.carbs}</TableCell>
-                                                        <TableCell align="right">{row.protein}</TableCell>
+                                                        <TableCell align="left">{row.cliente}</TableCell>
+                                                        <TableCell align="left">
+                                                            <List>
+                                                                {row.itens.map((array) => {
+                                                                    return (
+                                                                        <ListItem disablePadding style={{ marginBottom: 10 }}>
+                                                                            {array}
+                                                                        </ListItem>
+                                                                    )
+                                                                })}
+                                                            </List>
+                                                        </TableCell>
+                                                        <TableCell align="left">
+                                                            <List>
+                                                                {row.comentarios.map((array) => {
+                                                                    return (
+                                                                        <ListItem disablePadding style={{ marginBottom: 10 }}>
+                                                                            {array}
+                                                                        </ListItem>
+                                                                    )
+                                                                })}
+                                                            </List>
+                                                        </TableCell>
+                                                        <TableCell align="left">
+                                                            <List>
+                                                                {row.quantidade.map((array) => {
+                                                                    return (
+                                                                        <ListItem disablePadding style={{ marginBottom: 10 }}>
+                                                                            {array}
+                                                                        </ListItem>
+                                                                    )
+                                                                })}
+                                                            </List>
+                                                        </TableCell>
+                                                        <TableCell align="left">{row.mesa}</TableCell>
+                                                        <TableCell align="left">
+                                                            <List>
+                                                                <ListItem disablePadding>
+                                                                    <Button variant="contained" color="primary" style={{ marginBottom: 5 }}>Preparar</Button>
+                                                                </ListItem>
+                                                                <ListItem disablePadding>
+                                                                    <Button variant="contained" color="success">Entregar</Button>
+                                                                </ListItem>
+                                                            </List>
+                                                        </TableCell>
                                                     </TableRow>
                                                 ))}
-
                                             </TableBody>
                                         </Table>
-                                        <Button variant="outlined" color="secondary"
-
-                                            style={{
-                                                marginTop: -210,
-                                                marginLeft: 860,
-                                                width: 100,
-                                            }}
-
-                                        >Preparar</Button>
-
-                                        <Button variant="outlined" color="success"
-
-                                            style={{
-                                                marginTop: -200,
-                                                marginLeft: 860,
-                                                width: 100,
-                                            }}
-
-                                        >Entregar</Button>
-
-                                        <Button variant="outlined" color="secondary"
-
-                                            style={{
-                                                marginTop: -180,
-                                                marginLeft: 860,
-                                                width: 100,
-                                            }}
-
-                                        >Preparar</Button>
-
-                                        <Button variant="outlined" color="success"
-
-                                            style={{
-                                                marginTop: -170,
-                                                marginLeft: 860,
-                                                width: 100,
-                                            }}
-
-                                        >Entregar</Button>
-
-
                                     </TableContainer>
-
-
                                 </Paper>
-
                             </Grid>
-
-
-
                         </Grid>
-
                     </Container>
                 </Box>
             </Box>
-        </ThemeProvider>
+        </ThemeProvider >
     );
 }
 

@@ -23,8 +23,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import TextField from '@mui/material/TextField';
-import CreateIcon from '@mui/icons-material/Create';
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
 
 
 
@@ -89,22 +89,29 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
+const theme = createTheme({
+	palette: {
+		edit: {
+			main: '#FFCA2C',
+			contrastText: '#fff'
+		},
+	},
+});
+
 function DashboardContent() {
 	const [open, setOpen] = React.useState(true);
 	const toggleDrawer = () => {
 		setOpen(!open);
 	};
 
-	function createData(name, calories, fat, carbs, protein) {
-		return { name, calories, fat, carbs, protein };
+	function createData(nome, funcao, usuario) {
+		return { nome, funcao, usuario };
 	}
 
 	const rows = [
-		createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-		createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-		// createData('Eclair', 262, 16.0, 24, 6.0),
-		// createData('Cupcake', 305, 3.7, 67, 4.3),
-		// createData('Gingerbread', 356, 16.0, 49, 3.9),
+		createData('Administrador', 'Administrador', 'Admin'),
+		createData('Rogério Magalhães Silva', 'Administrador', 'RSilva'),
+		createData('Thales Almeida Figueredo', 'Atendente, Cozinha', 'ThalesF'),
 	];
 
 	return (
@@ -181,120 +188,87 @@ function DashboardContent() {
 							<Grid item sm={12}>
 								<Paper
 									style={{
-										height: 310,
 										marginLeft: 150,
 										marginTop: 50,
-									}}
-								>
-									<h2
-										style={{
-											marginTop: 10,
-											marginLeft: 380,
-										}}
+									}}>
 
-									>Lista de Funcionários</h2>
-									<Grid item xs={12} sm={4}>
-										<TextField
-											style={{ marginLeft: 40, marginTop: 30 }}
-											required
-											id="firstName"
-											name="PesquisarFuncionario"
-											label="Pesquisar Funcionário"
-											fullWidth
-											autoComplete="given-name"
-										// variant="standard"
-										/>
+									<h2 style={{
+										marginTop: 10,
+										display: "flex",
+										justifyContent: "center",
+									}}>Lista de Funcionários</h2>
+
+									<Grid container xs={11}
+										style={{
+											marginLeft: 40,
+											marginTop: 30,
+											flexDirection: "row",
+										}}>
+
+										<Paper
+											component="form"
+											sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+										>
+											<InputBase
+												sx={{ ml: 1, flex: 1 }}
+												placeholder="Pesquisar Funcionário"
+												inputProps={{ 'aria-label': 'pesquisar funcionario' }}
+											/>
+											<Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+											<IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+												<SearchIcon />
+											</IconButton>
+										</Paper>
+										<Button variant="contained" color="primary"
+											style={{
+												marginLeft: 350,
+											}}>Adicionar</Button>
 									</Grid>
-									<Button variant="outlined" color="success"
 
-										style={{
-											marginTop: -80,
-											marginLeft: 380,
-										}}
-
-									>Pesquisar</Button>
-
-									<Button variant="outlined" color="secondary"
-
-										style={{
-											marginTop: -125,
-											marginLeft: 780,
-										}}
-
-									>Adicionar</Button>
 									<TableContainer component={Paper}>
 										<Table sx={{ minWidth: 600, }} aria-label="a dense table"
 											style={{
-												marginLeft: 20,
 												marginTop: 50,
-												width: 950,
-
-
-											}}
-										>
+												marginBottom: 20,
+												paddingLeft: 15,
+												paddingRight: 15,
+											}}>
 											<TableHead>
 												<TableRow>
-													<TableCell>#</TableCell>
-													<TableCell align="right">Nome</TableCell>
-													<TableCell align="right">Função</TableCell>
-													<TableCell align="right">Usuário</TableCell>
-													<TableCell align="right">Tipo</TableCell>
-													<TableCell align="right">Ações</TableCell>
+													<TableCell align="left">Nome</TableCell>
+													<TableCell align="left">Função</TableCell>
+													<TableCell align="left">Usuário</TableCell>
+													<TableCell align="left">Ações</TableCell>
 												</TableRow>
 											</TableHead>
 											<TableBody>
 												{rows.map((row) => (
 													<TableRow
-														key={row.name}
+														key={row.nome}
 														sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 													>
-														<TableCell component="th" scope="row">
-															{row.name}
+														<TableCell component="th" scope="row" align="left">
+															{row.nome}
 														</TableCell>
-														<TableCell align="right">{row.calories}</TableCell>
-														<TableCell align="right">{row.fat}</TableCell>
-														<TableCell align="right">{row.carbs}</TableCell>
-														<TableCell align="right">{row.protein}</TableCell>
+														<TableCell align="left">{row.funcao}</TableCell>
+														<TableCell align="left">{row.usuario}</TableCell>
+														<TableCell align="left">
+															<ThemeProvider theme={theme}>
+																<Button variant="contained" color="edit">Editar</Button>
+															</ThemeProvider>
+														</TableCell>
 													</TableRow>
 												))}
 											</TableBody>
-
-
 										</Table>
-
-										<Button variant="outlined" color="secondary"
-
-											style={{
-												marginTop: -180,
-												marginLeft: 860,
-												width: 100,
-											}}
-
-										>Editar</Button>
-
-										<Button variant="outlined" color="secondary"
-
-											style={{
-												marginTop: -120,
-												marginLeft: 860,
-												width: 100,
-											}}
-
-										>Editar</Button>
-
 									</TableContainer>
-
 								</Paper>
 							</Grid>
-
-
-
 						</Grid>
-
 					</Container>
 				</Box>
 			</Box>
-		</ThemeProvider>
+		</ThemeProvider >
 	);
 }
 

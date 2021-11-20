@@ -23,10 +23,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import TextField from '@mui/material/TextField';
-import CreateIcon from '@mui/icons-material/Create';
-
-
+import InputBase from '@mui/material/InputBase';
+import SearchIcon from '@mui/icons-material/Search';
 
 function Copyright(props) {
 	return (
@@ -89,22 +87,30 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 const mdTheme = createTheme();
 
+const theme = createTheme({
+	palette: {
+		edit: {
+			main: '#FFCA2C',
+			contrastText: '#fff'
+		},
+	},
+});
+
 function DashboardContent() {
 	const [open, setOpen] = React.useState(true);
 	const toggleDrawer = () => {
 		setOpen(!open);
 	};
 
-	function createData(name, calories, fat, carbs, protein) {
-		return { name, calories, fat, carbs, protein };
+	function createData(nome, descricao, valor) {
+		return { nome, descricao, valor };
 	}
 
 	const rows = [
-		createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-		createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-		createData('Eclair', 262, 16.0, 24, 6.0),
-		createData('Cupcake', 305, 3.7, 67, 4.3),
-		createData('Gingerbread', 356, 16.0, 49, 3.9),
+		createData('Porção de batata frita', "500g de batata frita com bacon e queijo cheddar", "R$ 15,00"),
+		createData('X-Salada', "pão, hamburguer, queijo, alface, tomate", "R$ 5,00"),
+		createData('X-Tudo', "pão, hamburguer, queijo, alface, tomate, picles, cebola, bacon, calabresa, ovo frito", "R$ 10,00"),
+		createData('Pizza de calabresa', "mutsarela, tomate, calabresa, orégano", "R$ 40,00"),
 	];
 
 	return (
@@ -181,58 +187,52 @@ function DashboardContent() {
 							<Grid item sm={12}>
 								<Paper
 									style={{
-										height: 310,
 										marginLeft: 150,
 										marginTop: 50,
-									}}
-								>
-									<h2
-										style={{
-											marginTop: 10,
-											marginLeft: 380,
-										}}
+									}}>
 
-									>Cardápio</h2>
-									<Grid item xs={12} sm={4}>
-										<TextField
+									<h2 style={{
+										marginTop: 10,
+										display: "flex",
+										justifyContent: "center",
+									}}>Cardápio</h2>
+
+									<Grid container xs={11}
+										style={{
+											marginLeft: 40,
+											marginTop: 30,
+											flexDirection: "row",
+										}}>
+
+										<Paper
+											component="form"
+											sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
+										>
+											<InputBase
+												sx={{ ml: 1, flex: 1 }}
+												placeholder="Pesquisar Item"
+												inputProps={{ 'aria-label': 'pesquisar item' }}
+											/>
+											<Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+											<IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+												<SearchIcon />
+											</IconButton>
+										</Paper>
+										<Button variant="contained" color="primary"
 											style={{
-												marginLeft: 40,
-												marginTop: 30,
-											}}
-											id="itemName"
-											name="PesquisarItem"
-											label="Pesquisar Item"
-											fullWidth
-											autoComplete="given-name"
-											type="search"
-											size="small"
-										/>
+												marginLeft: 350,
+											}}>Adicionar</Button>
 									</Grid>
-									<Button variant="outlined" color="success"
-										style={{
-											marginTop: -70,
-											marginLeft: 380,
-										}}
-									>Pesquisar</Button>
 
-									<Button variant="outlined" color="secondary"
-
-										style={{
-											marginTop: -125,
-											marginLeft: 780,
-										}}
-
-									>Adicionar</Button>
 									<TableContainer component={Paper}>
 										<Table sx={{ minWidth: 600, }} aria-label="a dense table"
 											style={{
-												marginLeft: 20,
 												marginTop: 50,
-												width: 950,
-
-
-											}}
-										>
+												marginBottom: 20,
+												paddingLeft: 15,
+												paddingRight: 15,
+												// backgroundColor: "#ccc",
+											}}>
 											<TableHead>
 												<TableRow>
 													<TableCell align="left">Nome</TableCell>
@@ -244,33 +244,23 @@ function DashboardContent() {
 											<TableBody>
 												{rows.map((row) => (
 													<TableRow
-														key={row.name}
+														key={row.nome}
 														sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
 													>
 														<TableCell component="th" scope="row" align="left">
-															{row.name}
+															{row.nome}
 														</TableCell>
-														<TableCell align="left">{row.calories}</TableCell>
-														<TableCell align="left">{row.fat}</TableCell>
+														<TableCell align="left">{row.descricao}</TableCell>
+														<TableCell align="left">{row.valor}</TableCell>
 														<TableCell align="left">
-															<Button variant="outlined" color="secondary">Editar</Button>
+															<ThemeProvider theme={theme}>
+																<Button variant="contained" color="edit">Editar</Button>
+															</ThemeProvider>
 														</TableCell>
 													</TableRow>
 												))}
 											</TableBody>
-
-
 										</Table>
-
-
-
-										{/* <Button variant="outlined" color="secondary"
-											style={{
-												marginTop: -120,
-												marginLeft: 860,
-												width: 100,
-											}}>Editar</Button> */}
-
 									</TableContainer>
 
 								</Paper>
