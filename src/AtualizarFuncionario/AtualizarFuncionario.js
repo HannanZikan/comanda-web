@@ -267,10 +267,9 @@ function DashboardContent() {
 										</Grid>
 										<Grid item xs={6}>
 											<TextField
-												required
 												id="lastName"
-												name="Senha"
-												label="Senha"
+												name="novaSenha"
+												label="Nova Senha"
 												size="small"
 												fullWidth
 												type="password"
@@ -279,10 +278,9 @@ function DashboardContent() {
 										</Grid>
 										<Grid item xs={6}>
 											<TextField
-												required
-												id="lastName"
-												name="ConfirmarSenha"
-												label="Confirmar Senha"
+												id="confirmarNovaSenha"
+												name="confirmarNovaSenha"
+												label="Confirmar Nova Senha"
 												size="small"
 												fullWidth
 												type="password"
