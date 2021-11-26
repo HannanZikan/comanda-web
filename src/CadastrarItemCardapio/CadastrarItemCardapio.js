@@ -20,7 +20,17 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from '../components/menu-admin';
+import { getDatabase, ref, set } from "firebase/database";
 
+
+function writeUserData(userId, name, email, imageUrl) {
+  const db = getDatabase();
+  set(ref(db, 'users/' + userId), {
+    username: name,
+    email: email,
+    profile_picture : imageUrl
+  });
+}
 
 
 
