@@ -20,9 +20,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from '../components/menu-admin';
-<<<<<<< HEAD
-import { getDatabase, ref, set } from "firebase/database";
-=======
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
@@ -30,7 +27,6 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputAdornment from '@mui/material/InputAdornment';
 import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
->>>>>>> main
 
 
 function writeUserData(userId, name, email, imageUrl) {
