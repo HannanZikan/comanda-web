@@ -246,7 +246,7 @@ function DashboardContent() {
 										<Button variant="contained" color="success"
 											style={{
 												marginTop: 25,
-											}}>Cadastrar</Button>
+											}}>Atualizar</Button>
 									</Grid>
 								</Paper>
 							</Grid>

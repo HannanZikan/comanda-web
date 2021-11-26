@@ -225,10 +225,11 @@ function DashboardContent() {
 												style={{ width: 200 }}
 												id="outlined-select-currency"
 												select
-												label="Forma de Pagemento"
+												label="Forma de Pagamento"
 												value={currency}
 												onChange={handleChange}
 												size="small"
+												required
 											>
 												{currencies.map((option) => (
 													<MenuItem key={option.value} value={option.value}>
