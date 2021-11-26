@@ -29,6 +29,7 @@ import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 
 
+// se tiver dando erro é por causa dessa função, tem que fazer alguma coisa ainda
 function writeUserData(userId, name, email, imageUrl) {
   const db = getDatabase();
   set(ref(db, 'users/' + userId), {
