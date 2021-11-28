@@ -11,35 +11,26 @@ import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
-import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from '../components/menu-admin';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
 import Input from '@mui/material/Input';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import InputAdornment from '@mui/material/InputAdornment';
-import Stack from '@mui/material/Stack';
 import MenuItem from '@mui/material/MenuItem';
 
 
 // se tiver dando erro é por causa dessa função, tem que fazer alguma coisa ainda
-function writeUserData(userId, name, email, imageUrl) {
-  const db = getDatabase();
-  set(ref(db, 'users/' + userId), {
-    username: name,
-    email: email,
-    profile_picture : imageUrl
-  });
-}
-
-
+// function writeUserData(userId, name, email, imageUrl) {
+//   const db = getDatabase();
+//   set(ref(db, 'users/' + userId), {
+//     username: name,
+//     email: email,
+//     profile_picture : imageUrl
+//   });
+// }
 
 function Copyright(props) {
 	return (
