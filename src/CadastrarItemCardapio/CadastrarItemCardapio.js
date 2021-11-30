@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-// import firebase from 'firebase';
+import firebase from "../firebase"
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -90,11 +90,18 @@ function DashboardContent() {
 		setOpen(!open);
 	};
 
-	const [currency, setCurrency] = React.useState('EUR');
+	// nome dos campos no banco
+	const [nome, setNome] = React.useState('');
+	const [valor, setValor] = React.useState('');
+	const [descricao, setDescricao] = React.useState('');
+	const [categoria, setCategoria] = React.useState('');
+	
+	// sempre que tiver um campo select box, colocar o onChange do campo como handleChance
 	const handleChange = (event) => {
-		setCurrency(event.target.value);
+		setCategoria(event.target.value);
 	};
-	const currencies = [
+	// sempre que tiver um campo select box, criar um objeto com as opções (colocar o nome do campo no plural pra ficar mais fácil de visualizar)
+	const categorias = [
 		{
 			value: 'Lanche',
 			label: 'Lanche',
@@ -109,27 +116,22 @@ function DashboardContent() {
 		},
 	];
 
-	const [nome, setNome] = React.useState('');
-	const [valor, setValor] = React.useState('');
-	const [descricao, setDescricao] = React.useState('');
-	const [categoria, setCategoria] = React.useState(currency);
-
 	function cadastrar() {
-		console.log('teste');
-		// try {
-		// 	firebase.database().ref('/Cardapio').push({
-		// 		nome: nome,
-		// 		descricao: descricao,
-		// 		valor: valor,
-		// 		categoria: categoria,
-		// 	})
-		// } catch (error) {
-		// 	alert(error)
-		// } finally {
-		// 	setNome('')
-		// 	setValor('')
-		// 	setDescricao('')
-		// }
+		try {
+			firebase.database().ref('/Cardapio').push({
+				nome: nome,
+				descricao: descricao,
+				valor: valor,
+				categoria: categoria,
+			})
+		} catch (error) {
+			alert(error)
+		} finally {
+			setNome('')
+			setValor('')
+			setDescricao('')
+			setCategoria('')
+		}
 	}
 
 	return (
@@ -201,7 +203,6 @@ function DashboardContent() {
 				>
 					<Toolbar />
 					<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-						{/* <form autoComplete="off" onSubmit={manupuladorFormEnvio}> */}
 						<Grid container spacing={3}>
 							<Grid item sm={12}>
 								<Paper
@@ -258,16 +259,17 @@ function DashboardContent() {
 										</Grid>
 										<Grid item xs={6}>
 											<TextField
-												// style={{ width: 200 }}
+												required
+												style={{ width: 200 }}
 												id="outlined-select-currency"
 												select
 												name="categoria"
 												label="Categoria"
-												value={currency}
+												value={categoria}
 												onChange={handleChange}
 												size="small"
 											>
-												{currencies.map((option) => (
+												{categorias.map((option) => (
 													<MenuItem key={option.value} value={option.value}>
 														{option.label}
 													</MenuItem>
@@ -314,7 +316,6 @@ function DashboardContent() {
 								</Paper>
 							</Grid>
 						</Grid>
-						{/* </form> */}
 					</Container>
 				</Box>
 			</Box>
