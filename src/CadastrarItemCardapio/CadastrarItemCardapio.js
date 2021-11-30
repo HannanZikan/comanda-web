@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
+// import firebase from 'firebase';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -21,16 +22,6 @@ import { mainListItems, secondaryListItems } from '../components/menu-admin';
 import Input from '@mui/material/Input';
 import MenuItem from '@mui/material/MenuItem';
 
-
-// se tiver dando erro é por causa dessa função, tem que fazer alguma coisa ainda
-// function writeUserData(userId, name, email, imageUrl) {
-//   const db = getDatabase();
-//   set(ref(db, 'users/' + userId), {
-//     username: name,
-//     email: email,
-//     profile_picture : imageUrl
-//   });
-// }
 
 function Copyright(props) {
 	return (
@@ -102,19 +93,45 @@ function DashboardContent() {
 	const [currency, setCurrency] = React.useState('EUR');
 	const handleChange = (event) => {
 		setCurrency(event.target.value);
-	  };
-	
+	};
 	const currencies = [
 		{
-			value: 'Ativo',
-			label: 'Ativo',
+			value: 'Lanche',
+			label: 'Lanche',
 		},
 		{
-			value: 'Inativo',
-			label: 'Inativo',
+			value: 'Pizza',
+			label: 'Pizza',
+		},
+		{
+			value: 'Bebida',
+			label: 'Bebida',
 		},
 	];
-	
+
+	const [nome, setNome] = React.useState('');
+	const [valor, setValor] = React.useState('');
+	const [descricao, setDescricao] = React.useState('');
+	const [categoria, setCategoria] = React.useState(currency);
+
+	function cadastrar() {
+		console.log('teste');
+		// try {
+		// 	firebase.database().ref('/Cardapio').push({
+		// 		nome: nome,
+		// 		descricao: descricao,
+		// 		valor: valor,
+		// 		categoria: categoria,
+		// 	})
+		// } catch (error) {
+		// 	alert(error)
+		// } finally {
+		// 	setNome('')
+		// 	setValor('')
+		// 	setDescricao('')
+		// }
+	}
+
 	return (
 		<ThemeProvider theme={mdTheme}>
 			<Box sx={{ display: 'flex' }}>
@@ -184,7 +201,7 @@ function DashboardContent() {
 				>
 					<Toolbar />
 					<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-
+						{/* <form autoComplete="off" onSubmit={manupuladorFormEnvio}> */}
 						<Grid container spacing={3}>
 							<Grid item sm={12}>
 								<Paper
@@ -212,9 +229,13 @@ function DashboardContent() {
 											<TextField
 												required
 												id="nome"
-												name="Nome"
+												name="nome"
 												label="Nome"
 												size="small"
+												value={nome}
+												onChange={e => {
+													setNome(e.target.value);
+												}}
 												fullWidth
 												autoComplete="given-name"
 											/>
@@ -223,19 +244,25 @@ function DashboardContent() {
 											<TextField
 												required
 												id="valor"
-												name="Valor"
+												name="valor"
 												label="Valor"
 												size="small"
+												type="number"
+												value={valor}
+												onChange={e => {
+													setValor(e.target.value);
+												}}
 												fullWidth
 												autoComplete="family-name"
 											/>
 										</Grid>
 										<Grid item xs={6}>
 											<TextField
-												style={{ width: 200 }}
+												// style={{ width: 200 }}
 												id="outlined-select-currency"
 												select
-												label="Status"
+												name="categoria"
+												label="Categoria"
 												value={currency}
 												onChange={handleChange}
 												size="small"
@@ -251,8 +278,12 @@ function DashboardContent() {
 											<TextField
 												required
 												id="descricao"
-												name="Descricao"
+												name="descricao"
 												label="Descrição"
+												value={descricao}
+												onChange={e => {
+													setDescricao(e.target.value);
+												}}
 												size="small"
 												fullWidth
 												autoComplete="family-name"
@@ -275,7 +306,7 @@ function DashboardContent() {
 											style={{
 												marginTop: 25,
 											}}>Cancelar</Button>
-										<Button variant="contained" color="success"
+										<Button variant="contained" color="success" onClick={cadastrar}
 											style={{
 												marginTop: 25,
 											}}>Cadastrar</Button>
@@ -283,6 +314,7 @@ function DashboardContent() {
 								</Paper>
 							</Grid>
 						</Grid>
+						{/* </form> */}
 					</Container>
 				</Box>
 			</Box>
