@@ -1,4 +1,5 @@
 import * as React from 'react';
+import firebase from "../firebase"
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -102,16 +103,40 @@ function DashboardContent() {
 		setOpen(!open);
 	};
 
+	function getItens() {
+		firebase.database().ref('/Cardapio')
+			.on('value', (snapshot) => {
+				const list = []
+				snapshot.forEach((childItem) => {
+					list.push({
+						// mudar esses campos pros campos do banco
+						nome: childItem.val().nome,
+						descricao: childItem.val().descricao,
+						valor: childItem.val().valor,
+					})
+				})
+				// função que vai rodar dps que puxar do banco
+				list.forEach(function (lista) {
+					console.log(lista);
+					return lista
+				})
+				// return list;
+			});
+	}
+
 	function createData(nome, descricao, valor) {
 		return { nome, descricao, valor };
 	}
 
-	const rows = [
-		createData('Porção de batata frita', "500g de batata frita com bacon e queijo cheddar", "R$ 15,00"),
-		createData('X-Salada', "pão, hamburguer, queijo, alface, tomate", "R$ 5,00"),
-		createData('X-Tudo', "pão, hamburguer, queijo, alface, tomate, picles, cebola, bacon, calabresa, ovo frito", "R$ 10,00"),
-		createData('Pizza de calabresa', "mutsarela, tomate, calabresa, orégano", "R$ 40,00"),
-	];
+	const rows = getItens();
+
+	// const rows = [
+		// getItens(),
+		// createData('Porção de batata frita', "500g de batata frita com bacon e queijo cheddar", "R$ 15,00"),
+		// createData('X-Salada', "pão, hamburguer, queijo, alface, tomate", "R$ 5,00"),
+		// createData('X-Tudo', "pão, hamburguer, queijo, alface, tomate, picles, cebola, bacon, calabresa, ovo frito", "R$ 10,00"),
+		// createData('Pizza de calabresa', "mutsarela, tomate, calabresa, orégano", "R$ 40,00"),
+	// ];
 
 	return (
 		<ThemeProvider theme={mdTheme}>
@@ -218,7 +243,7 @@ function DashboardContent() {
 												<SearchIcon />
 											</IconButton>
 										</Paper>
-										<Button variant="contained" color="primary"
+										<Button variant="contained" color="primary" onClick={getItens}
 											style={{
 												marginLeft: 350,
 											}}>Adicionar</Button>
