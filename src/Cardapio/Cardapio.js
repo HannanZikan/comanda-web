@@ -128,15 +128,15 @@ function DashboardContent() {
 		return { nome, descricao, valor };
 	}
 
-	const rows = getItens();
+	// const rows = getItens();
 
-	// const rows = [
+	const rows = [
 		// getItens(),
-		// createData('Porção de batata frita', "500g de batata frita com bacon e queijo cheddar", "R$ 15,00"),
-		// createData('X-Salada', "pão, hamburguer, queijo, alface, tomate", "R$ 5,00"),
-		// createData('X-Tudo', "pão, hamburguer, queijo, alface, tomate, picles, cebola, bacon, calabresa, ovo frito", "R$ 10,00"),
-		// createData('Pizza de calabresa', "mutsarela, tomate, calabresa, orégano", "R$ 40,00"),
-	// ];
+		createData('Porção de batata frita', "500g de batata frita com bacon e queijo cheddar", "R$ 15,00"),
+		createData('X-Salada', "pão, hamburguer, queijo, alface, tomate", "R$ 5,00"),
+		createData('X-Tudo', "pão, hamburguer, queijo, alface, tomate, picles, cebola, bacon, calabresa, ovo frito", "R$ 10,00"),
+		createData('Pizza de calabresa', "mutsarela, tomate, calabresa, orégano", "R$ 40,00"),
+	];
 
 	return (
 		<ThemeProvider theme={mdTheme}>
