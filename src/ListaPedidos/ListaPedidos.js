@@ -29,6 +29,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import firebase from "../firebase";
 
 
 
@@ -107,6 +108,32 @@ function DashboardContent() {
     const toggleDrawer = () => {
         setOpen(!open);
     };
+
+
+    function getItens() {
+		firebase.database().ref('/ListaPedidos')
+			.on('value', (snapshot) => {
+				const list = []
+				snapshot.forEach((childItem) => {
+					list.push({
+						// mudar esses campos pros campos do banco
+						data: childItem.val().data,
+						estabelecimento: childItem.val().estabelecimento,
+						mesa: childItem.val().mesa,
+                        usuario: childItem.val().usuario,
+					})
+				})
+				// função que vai rodar dps que puxar do banco
+				list.forEach(function (lista) {
+					// testar (colocar a const row em cima dessa função)
+                   
+                    rows.push(lista);
+					console.log(lista);
+					return lista
+				})
+				// return list;
+			});
+	}
 
     function createData(id, cliente, itens, comentarios, quantidade, mesa) {
         return { id, cliente, itens, comentarios, quantidade, mesa };
@@ -219,7 +246,7 @@ function DashboardContent() {
                                                 inputProps={{ 'aria-label': 'pesquisar pedido' }}
                                             />
                                             <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                                            <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
+                                            <IconButton  type="submit" sx={{ p: '10px' }} aria-label="search">
                                                 <SearchIcon />
                                             </IconButton>
                                         </Paper>
@@ -292,7 +319,7 @@ function DashboardContent() {
                                                         <TableCell align="left">
                                                             <List>
                                                                 <ListItem disablePadding>
-                                                                    <Button variant="contained" color="primary" style={{ marginBottom: 5 }}>Preparar</Button>
+                                                                    <Button variant="contained" onClick color="primary" style={{ marginBottom: 5 }}>Preparar</Button>
                                                                 </ListItem>
                                                                 <ListItem disablePadding>
                                                                     <Button variant="contained" color="success">Entregar</Button>

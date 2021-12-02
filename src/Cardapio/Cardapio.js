@@ -27,6 +27,8 @@ import TableRow from '@mui/material/TableRow';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 
+
+
 function Copyright(props) {
 	return (
 		<Typography variant="body2" color="text.secondary" align="center" {...props}>
@@ -117,6 +119,8 @@ function DashboardContent() {
 				})
 				// função que vai rodar dps que puxar do banco
 				list.forEach(function (lista) {
+					// testar (colocar a const row em cima dessa função)
+					// rows.push(lista);
 					console.log(lista);
 					return lista
 				})
