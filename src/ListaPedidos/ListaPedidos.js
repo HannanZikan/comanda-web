@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react'
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -104,46 +104,58 @@ const theme = createTheme({
 });
 
 function DashboardContent() {
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = useState(true);
     const toggleDrawer = () => {
         setOpen(!open);
     };
+    const [rows, setRows] = useState([]);
+    const [listaPedidos, setListaPedidos] = useState([])
+    useEffect(() => {
+        try {
+            const getItensComanda = firebase.database().ref('/Comandas/-Mpy4hwF4bqXvLh4cird/itens')
+                .on('value', (snapshot) => {
+                    const pedidos = []
+                    snapshot.forEach((childItem) => {
+                        pedidos.push({
+                            nome: childItem.val().nome,
+                            quantidade: childItem.val().quantidade,
+                            observacao: childItem.val().observacao,
+                        })
+                    })
+                    setRows(pedidos)
+                })
+        } catch (error) {
+            alert(error);
+        }
+    }, [])
 
 
-    function getItens() {
-		firebase.database().ref('/ListaPedidos')
-			.on('value', (snapshot) => {
-				const list = []
-				snapshot.forEach((childItem) => {
-					list.push({
-						// mudar esses campos pros campos do banco
-						data: childItem.val().data,
-						estabelecimento: childItem.val().estabelecimento,
-						mesa: childItem.val().mesa,
-                        usuario: childItem.val().usuario,
-					})
-				})
-				// função que vai rodar dps que puxar do banco
-				list.forEach(function (lista) {
-					// testar (colocar a const row em cima dessa função)
-                   
-                    rows.push(lista);
-					console.log(lista);
-					return lista
-				})
-				// return list;
-			});
-	}
-
-    function createData(id, cliente, itens, comentarios, quantidade, mesa) {
-        return { id, cliente, itens, comentarios, quantidade, mesa };
+    function createData(itens, comentarios, quantidade) {
+        return [itens, comentarios, quantidade]
     }
 
-    const rows = [
-        createData('#1548', 'Roberto Guimarães', ['X-Tudo', 'Coca-Cola'], ['Sem Maionese', 'Com gelo e limão'], [1, 1], '15'),
-        createData('#1549', 'Matheus Ramos', ['Pizza de Calabresa', 'Fanta Laranja'], ['Sem comentários', 'Com gelo'], [1, 2], '03'),
-        createData('#1550', 'Pedro Matias', ['Poção de Batata Frita', 'Cuba Libre'], ['Bastante cheddar', 'Sem Comentários'], [1, 3], '09'),
+    const rows2 = [
+        {
+            nome: "cuba libre",
+            observacao: "sem gelo",
+            quantidade: 1,
+        },
+        {
+            nome: "coca lata",
+            observacao: "com gelo",
+            quantidade: 1,
+        },
     ];
+
+
+    function teste() {
+        rows.forEach(function (array) {
+            return console.log(array)
+        })
+        // rows2.forEach(function (array) {
+        //     return console.log(array)
+        // })
+    }
 
     return (
         <ThemeProvider theme={mdTheme}>
@@ -246,7 +258,7 @@ function DashboardContent() {
                                                 inputProps={{ 'aria-label': 'pesquisar pedido' }}
                                             />
                                             <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-                                            <IconButton  type="submit" sx={{ p: '10px' }} aria-label="search">
+                                            <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
                                                 <SearchIcon />
                                             </IconButton>
                                         </Paper>
@@ -273,61 +285,66 @@ function DashboardContent() {
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
-                                                {rows.map((row) => (
-                                                    <TableRow
-                                                        key={row.id}
-                                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                    >
-                                                        <TableCell component="th" scope="row" align="left">
-                                                            {row.id}
-                                                        </TableCell>
-                                                        <TableCell align="left">{row.cliente}</TableCell>
-                                                        <TableCell align="left">
-                                                            <List>
-                                                                {row.itens.map((array) => {
-                                                                    return (
-                                                                        <ListItem disablePadding style={{ marginBottom: 10 }}>
-                                                                            {array}
-                                                                        </ListItem>
-                                                                    )
-                                                                })}
-                                                            </List>
-                                                        </TableCell>
-                                                        <TableCell align="left">
-                                                            <List>
-                                                                {row.comentarios.map((array) => {
-                                                                    return (
-                                                                        <ListItem disablePadding style={{ marginBottom: 10 }}>
-                                                                            {array}
-                                                                        </ListItem>
-                                                                    )
-                                                                })}
-                                                            </List>
-                                                        </TableCell>
-                                                        <TableCell align="left">
-                                                            <List>
-                                                                {row.quantidade.map((array) => {
-                                                                    return (
-                                                                        <ListItem disablePadding style={{ marginBottom: 10 }}>
-                                                                            {array}
-                                                                        </ListItem>
-                                                                    )
-                                                                })}
-                                                            </List>
-                                                        </TableCell>
-                                                        <TableCell align="left">{row.mesa}</TableCell>
-                                                        <TableCell align="left">
-                                                            <List>
-                                                                <ListItem disablePadding>
-                                                                    <Button variant="contained" onClick color="primary" style={{ marginBottom: 5 }}>Preparar</Button>
-                                                                </ListItem>
-                                                                <ListItem disablePadding>
-                                                                    <Button variant="contained" color="success">Entregar</Button>
-                                                                </ListItem>
-                                                            </List>
-                                                        </TableCell>
-                                                    </TableRow>
-                                                ))}
+                                                <TableRow
+                                                    key={rows.shortId}
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                >
+                                                    <TableCell component="th" scope="row" align="left">
+                                                        {rows.shortId}
+                                                    </TableCell>
+                                                    <TableCell align="left">Carlos Alberto</TableCell>
+                                                    <TableCell align="left">
+                                                        <List>
+                                                            {rows.map(function (array) {
+                                                                return (
+                                                                    <ListItem disablePadding style={{ marginBottom: 10 }}>
+                                                                        {array.nome}
+                                                                    </ListItem>
+                                                                )
+                                                            })}
+                                                        </List>
+                                                    </TableCell>
+                                                    <TableCell align="left">
+                                                        <List>
+                                                            {rows.map((array) => {
+                                                                return (
+                                                                    <ListItem disablePadding style={{ marginBottom: 10 }}>
+                                                                        {array.observacao}
+                                                                    </ListItem>
+                                                                )
+                                                            })}
+                                                        </List>
+                                                    </TableCell>
+                                                    <TableCell align="left">
+                                                        <List>
+                                                            {rows.map((array) => {
+                                                                return (
+                                                                    <ListItem disablePadding style={{ marginBottom: 10 }}>
+                                                                        {array.quantidade}
+                                                                    </ListItem>
+                                                                )
+                                                            })}
+                                                        </List>
+                                                    </TableCell>
+                                                    <TableCell align="left">0001</TableCell>
+                                                    <TableCell align="left">
+                                                        <List>
+                                                            <ListItem disablePadding>
+                                                                <Button variant="contained" onClick color="primary" style={{ marginBottom: 5 }}>Preparar</Button>
+                                                            </ListItem>
+                                                            <ListItem disablePadding>
+                                                                <Button
+                                                                    variant="contained"
+                                                                    onClick={() => {
+                                                                        teste()
+                                                                    }}
+                                                                    color="success">
+                                                                    Entregar
+                                                                </Button>
+                                                            </ListItem>
+                                                        </List>
+                                                    </TableCell>
+                                                </TableRow>
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
