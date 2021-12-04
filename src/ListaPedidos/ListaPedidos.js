@@ -115,37 +115,19 @@ function DashboardContent() {
     useEffect(() => {
         try {
 
-            const list = []
             const getComanda = firebase.database().ref('/Comandas')
                 .orderByChild('usuario').equalTo('xZymKpGmLbQvdkjoFeTY10DUjfH3')
                 .on('value', (snapshot) => {
+                    const list = []
                     snapshot.forEach((childItem) => {
-                        list.push({
-                            cliente: childItem.val().cliente,
-                            mesa: childItem.val().mesa,
-                        })
+                        list.push(childItem.val())
                     })
                     setComanda(list)
                 })
-
-            const getItensComanda = firebase.database().ref('/Comandas/-Mpy4hwF4bqXvLh4cird/itens')
-                .orderByChild('status').startAt(1).endAt(2)
-                .on('value', (snapshot) => {
-                    const pedidos = []
-                    snapshot.forEach((childItem) => {
-                        pedidos.push({
-                            key: childItem.key,
-                            nome: childItem.val().nome,
-                            quantidade: childItem.val().quantidade,
-                            observacao: childItem.val().observacao,
-                            status: childItem.val().status,
-                        })
-                    })
-                    setRows(pedidos)
-                })
+            // console.log(comanda[0].itens)
 
         } catch (error) {
-            alert(error);
+            // alert(error);
         }
     }, [])
 
@@ -155,30 +137,43 @@ function DashboardContent() {
         })
     }
 
+    // const rooms = {r1: "Room 1", r2: "Room 2", r3: "Room 3"};
+
+    // const arrayResult = Object.keys(rooms).map(room => {
+    //     return {id: room, name: rooms[room]} 
+    // });
+
+    const arrayResult = comanda.length ? Object.keys(comanda[0]?.itens).map(key => {
+        return comanda[0].itens[key]
+    }) : []
+    // console.log(arrayResult)
+
     function updateStatus(status) {
         try {
-            rows.forEach(function (array) {
-                if (array.status == 1) {
-                    firebase.database().ref('/Comandas/-Mpy4hwF4bqXvLh4cird/itens/' + array.key)
-                        .update({
-                            status: status
-                        })
-                    alert("O pedido está sendo preparado")
-                }
-                if (array.status == 2) {
-                    firebase.database().ref('/Comandas/-Mpy4hwF4bqXvLh4cird/itens/' + array.key)
-                        .update({
-                            status: status
-                        })
-                    alert("O pedido será entregue")
-                }
+            const array = []
+            firebase.database().ref('/Comandas/-Mq2yTsb7anjxhtoMbIO/itens/')
+                .on('value', (snapshot) => {
+                    snapshot.forEach((childItem) => {
+                        array.push(childItem.key)
+                    })
+                    console.log(array)
+                })
+            array.map(key => {
+                firebase.database().ref('/Comandas/-Mq2yTsb7anjxhtoMbIO/itens/' + key)
+                    .update({
+                        status: status
+                    })
             })
+            
+            status == 2 ? alert("O pedido está sendo preparado") : alert("O pedido será entregue")
+            
         } catch (error) {
             alert(error)
         }
     }
 
     return (
+
         <ThemeProvider theme={mdTheme}>
             <Box sx={{ display: 'flex' }}>
                 <CssBaseline />
@@ -283,10 +278,10 @@ function DashboardContent() {
                                                 <SearchIcon />
                                             </IconButton>
                                         </Paper>
-                                        <Button variant="contained" color="primary" onClick={()=>{teste()}}
-											style={{
-												marginLeft: 350,
-											}}>teste</Button>
+                                        <Button variant="contained" color="primary" onClick={() => { teste() }}
+                                            style={{
+                                                marginLeft: 350,
+                                            }}>teste</Button>
                                     </Grid>
 
 
@@ -300,7 +295,6 @@ function DashboardContent() {
                                             }}>
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell align="left"></TableCell>
                                                     <TableCell align="left">Cliente</TableCell>
                                                     <TableCell align="left">Itens</TableCell>
                                                     <TableCell align="left">Comentários</TableCell>
@@ -310,82 +304,73 @@ function DashboardContent() {
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
-                                                <TableRow
-                                                    key={rows.shortId}
-                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                                >
-                                                    <TableCell component="th" scope="row" align="left">
-                                                        {rows.shortId}
-                                                    </TableCell>
-                                                    <TableCell align="left">
-                                                        {comanda.cliente}
-                                                        {/* {comanda.map(function (array) {
-                                                            return array.cliente
-                                                        })} */}
-                                                    </TableCell>
-                                                    <TableCell align="left">
-                                                        <List>
-                                                            {rows.map(function (array) {
-                                                                return (
-                                                                    <ListItem disablePadding style={{ marginBottom: 10 }}>
-                                                                        {array.nome}
+                                                {comanda.map((pedido) => {
+
+                                                    return (
+                                                        <TableRow
+                                                            key={pedido.usuario}
+                                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                        >
+                                                            <TableCell align="left">
+                                                                cliente
+                                                            </TableCell>
+                                                            <TableCell align="left">
+                                                                <List>
+                                                                    {arrayResult.map(array => (
+                                                                        <ListItem disablePadding style={{ marginBottom: 10 }}>
+                                                                            {array.nome}
+                                                                        </ListItem>
+                                                                    ))}
+                                                                </List>
+                                                            </TableCell>
+                                                            <TableCell align="left">
+                                                                <List>
+                                                                    {arrayResult.map(array => (
+                                                                        <ListItem disablePadding style={{ marginBottom: 10 }}>
+                                                                            {array.observacao}
+                                                                        </ListItem>
+                                                                    ))}
+                                                                </List>
+                                                            </TableCell>
+                                                            <TableCell align="left">
+                                                                <List>
+                                                                    {arrayResult.map(array => (
+                                                                        <ListItem disablePadding style={{ marginBottom: 10 }}>
+                                                                            {array.quantidade}
+                                                                        </ListItem>
+                                                                    ))}
+                                                                </List>
+                                                            </TableCell>
+                                                            <TableCell align="left">
+                                                                {pedido.mesa}
+                                                            </TableCell>
+                                                            <TableCell align="left">
+                                                                <List>
+                                                                    <ListItem disablePadding>
+                                                                        <Button variant="contained"
+                                                                            color="primary"
+                                                                            onClick={() => {
+                                                                                updateStatus(2)
+                                                                            }}
+                                                                            style={{ marginBottom: 5 }}>
+                                                                            Preparar
+                                                                        </Button>
                                                                     </ListItem>
-                                                                )
-                                                            })}
-                                                        </List>
-                                                    </TableCell>
-                                                    <TableCell align="left">
-                                                        <List>
-                                                            {rows.map((array) => {
-                                                                return (
-                                                                    <ListItem disablePadding style={{ marginBottom: 10 }}>
-                                                                        {array.observacao}
+                                                                    <ListItem disablePadding>
+                                                                        <Button
+                                                                            variant="contained"
+                                                                            onClick={() => {
+                                                                                updateStatus(3)
+                                                                            }}
+                                                                            color="success">
+                                                                            Entregar
+                                                                        </Button>
                                                                     </ListItem>
-                                                                )
-                                                            })}
-                                                        </List>
-                                                    </TableCell>
-                                                    <TableCell align="left">
-                                                        <List>
-                                                            {rows.map((array) => {
-                                                                return (
-                                                                    <ListItem disablePadding style={{ marginBottom: 10 }}>
-                                                                        {array.quantidade}
-                                                                    </ListItem>
-                                                                )
-                                                            })}
-                                                        </List>
-                                                    </TableCell>
-                                                    <TableCell align="left">
-                                                        {comanda.map(function (array) {
-                                                            return array.mesa
-                                                        })}
-                                                    </TableCell>
-                                                    <TableCell align="left">
-                                                        <List>
-                                                            <ListItem disablePadding>
-                                                                <Button variant="contained"
-                                                                    color="primary"
-                                                                    onClick={() => {
-                                                                        updateStatus(2)
-                                                                    }}
-                                                                    style={{ marginBottom: 5 }}>
-                                                                    Preparar
-                                                                </Button>
-                                                            </ListItem>
-                                                            <ListItem disablePadding>
-                                                                <Button
-                                                                    variant="contained"
-                                                                    onClick={() => {
-                                                                        updateStatus(3)
-                                                                    }}
-                                                                    color="success">
-                                                                    Entregar
-                                                                </Button>
-                                                            </ListItem>
-                                                        </List>
-                                                    </TableCell>
-                                                </TableRow>
+                                                                </List>
+                                                            </TableCell>
+                                                        </TableRow>
+                                                    )
+                                                })}
                                             </TableBody>
                                         </Table>
                                     </TableContainer>
