@@ -98,12 +98,14 @@ function DashboardContent() {
 	const toggleDrawer = () => {
 		setOpen(!open);
 	};
-		
+
 	const [currency, setCurrency] = React.useState('EUR');
 	const handleChange = (event) => {
 		setCurrency(event.target.value);
-	  };
-	
+	};
+
+	const [codigo, setCodigo] = React.useState('')
+
 	const currencies = [
 		{
 			value: 'Débito',
@@ -118,8 +120,6 @@ function DashboardContent() {
 			label: 'À Vista',
 		},
 	];
-
-	
 
 	return (
 		<ThemeProvider theme={mdTheme}>
@@ -218,8 +218,13 @@ function DashboardContent() {
 											<TextField
 												required
 												id="firstName"
+												value={codigo}
+												onChange={e => {
+													setCodigo(e.target.value);
+												}}
 												name="Codigocomanda"
 												label="Número da Comanda"
+												type="number"
 												fullWidth
 												autoComplete="given-name"
 												size="small"
@@ -254,15 +259,21 @@ function DashboardContent() {
 											justifyContent: "space-around",
 										}}>
 										<Button variant="contained" color="error"
+											onClick={() => {
+												setCodigo('')
+											}}
 											style={{
 												marginTop: 25,
 											}}>Cancelar</Button>
 										<Button variant="contained"
-												href='/AtualizarPagamento'
-										color="success" 
+											onClick={() => {
+												alert("O pagamento foi registrado com sucesso!")
+												setCodigo('')
+											}}
+											color="success"
 											style={{
-													marginTop: 25,
-												}}>Registrar</Button>
+												marginTop: 25,
+											}}>Registrar</Button>
 
 									</Grid>
 								</Paper>
