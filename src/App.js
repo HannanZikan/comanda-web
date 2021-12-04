@@ -15,7 +15,7 @@ import ListaMesas from './ListaMesas/ListaMesas';
 import AtualizarFuncionario from './AtualizarFuncionario/AtualizarFuncionario';
 import TelaInicial from './TelaInicial/TelaInicial';
 import DadosEstabelecimento from './DadosEstabelecimento/DadosEstabelecimento';
-
+import AtualizarPagamento from './AtualizarPagamento/AtualizarPagamento';
 
 
 
@@ -70,6 +70,12 @@ function App() {
            <Route exact path="/DadosEstabelecimento">
                 <DadosEstabelecimento/>
            </Route>
+
+           <Route exact path="/AtualizarPagamento">
+                <AtualizarPagamento/>
+           </Route> 
+
+           
 
          </Switch>
       

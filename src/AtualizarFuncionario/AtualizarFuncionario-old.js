@@ -24,7 +24,7 @@ import { mainListItems, secondaryListItems } from '../components/menu-admin';
 
 
 
-function Copyright(props) {
+function Copyright(props) {           
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}

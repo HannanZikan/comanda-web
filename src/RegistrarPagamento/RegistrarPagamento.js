@@ -25,6 +25,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
+import firebase from "../firebase";
+import Modal from '@mui/material/Modal';
+
+
 
 
 
@@ -94,7 +98,7 @@ function DashboardContent() {
 	const toggleDrawer = () => {
 		setOpen(!open);
 	};
-
+		
 	const [currency, setCurrency] = React.useState('EUR');
 	const handleChange = (event) => {
 		setCurrency(event.target.value);
@@ -114,6 +118,8 @@ function DashboardContent() {
 			label: 'À Vista',
 		},
 	];
+
+	
 
 	return (
 		<ThemeProvider theme={mdTheme}>
@@ -213,7 +219,7 @@ function DashboardContent() {
 												required
 												id="firstName"
 												name="Codigocomanda"
-												label="Código da Comanda"
+												label="Número da Comanda"
 												fullWidth
 												autoComplete="given-name"
 												size="small"
@@ -251,10 +257,13 @@ function DashboardContent() {
 											style={{
 												marginTop: 25,
 											}}>Cancelar</Button>
-										<Button variant="contained" color="success"
+										<Button variant="contained"
+												href='/AtualizarPagamento'
+										color="success" 
 											style={{
-												marginTop: 25,
-											}}>Registrar</Button>
+													marginTop: 25,
+												}}>Registrar</Button>
+
 									</Grid>
 								</Paper>
 							</Grid>

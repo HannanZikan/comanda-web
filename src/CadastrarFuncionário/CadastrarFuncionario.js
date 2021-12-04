@@ -1,4 +1,5 @@
 import * as React from 'react';
+import firebase from "../firebase"
 import { styled, createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -107,7 +108,50 @@ function DashboardContent() {
 			typeof value === 'string' ? value.split(',') : value,
 		);
 	};
+		// nome dos campos no banco
+		const [NomeCompleto, setNomeCompleto] = React.useState('');
+		const [funcao, setfuncao] = React.useState('');
+		const [email, setemail] = React.useState('');
+		const [NomeUsuario, setNomeUsuario] = React.useState('');
+		
+		// sempre que tiver um campo select box, colocar o onChange do campo como handleChance
+		const handleChange = (event) => {
+			setemail(event.target.value);
+		};
+		// sempre que tiver um campo select box, criar um objeto com as opções (colocar o nome do campo no plural pra ficar mais fácil de visualizar)
+		// const categorias = [
+		// 	{
+		// 		value: 'Lanche',
+		// 		label: 'Lanche',
+		// 	},
+		// 	{
+		// 		value: 'Pizza',
+		// 		label: 'Pizza',
+		// 	},
+		// 	{
+		// 		value: 'Bebida',
+		// 		label: 'Bebida',
+		// 	},
+		// ];
 
+		function cadastrar() {
+			try {
+				firebase.database().ref('/Cardapio').push({
+					NomeCompleto: NomeCompleto,
+					funcao: funcao,
+					email: email,
+					NomeUsuario: NomeUsuario,
+				})
+			} catch (error) {
+				alert(error)
+			} finally {
+				setNomeCompleto('')
+				setfuncao('')
+				setemail('')
+				setNomeUsuario('')
+			}
+		}
+	
 	return (
 		<ThemeProvider theme={mdTheme}>
 			<Box sx={{ display: 'flex' }}>
@@ -209,6 +253,10 @@ function DashboardContent() {
 												label="Nome Completo"
 												size="small"
 												fullWidth
+												value = {NomeCompleto}
+												onChange= {e => {
+													setNomeCompleto (e.target.value)
+												}}
 												autoComplete="given-name"
 											/>
 										</Grid>
@@ -252,6 +300,10 @@ function DashboardContent() {
 												size="small"
 												fullWidth
 												autoComplete="family-name"
+												value={email}
+												onChange={e => {
+													setemail(e.target.value);
+												}}
 											/>
 										</Grid>
 										<Grid item xs={4}>
@@ -261,6 +313,10 @@ function DashboardContent() {
 												name="NomeUsuario"
 												label="Nome de Usuário"
 												size="small"
+												value={email}
+												onChange={e => {
+													setNomeUsuario(e.target.value);
+												}}
 												fullWidth
 												autoComplete="family-name"
 											/>
@@ -273,6 +329,7 @@ function DashboardContent() {
 												label="Senha"
 												size="small"
 												fullWidth
+												
 												type="password"
 												autoComplete="current-password"
 											/>
@@ -301,7 +358,7 @@ function DashboardContent() {
 											style={{
 												marginTop: 25,
 											}}>Cancelar</Button>
-										<Button variant="contained" color="success"
+										<Button variant="contained" onClick={cadastrar} color="success"
 											style={{
 												marginTop: 25,
 											}}>Cadastrar</Button>

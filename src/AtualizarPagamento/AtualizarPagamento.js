@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import firebase from "../firebase"
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import Box from '@mui/material/Box';
@@ -8,7 +7,6 @@ import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Button from '@mui/material/Button';
@@ -19,8 +17,18 @@ import Link from '@mui/material/Link';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import { mainListItems, secondaryListItems } from '../components/menu-admin';
-import Input from '@mui/material/Input';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
+import firebase from "../firebase";
+import Modal from '@mui/material/Modal';
+
+
 
 
 
@@ -90,50 +98,28 @@ function DashboardContent() {
 	const toggleDrawer = () => {
 		setOpen(!open);
 	};
-
-	// nome dos campos no banco
-	const [nome, setNome] = React.useState('');
-	const [valor, setValor] = React.useState('');
-	const [descricao, setDescricao] = React.useState('');
-	const [categoria, setCategoria] = React.useState('');
-	
-	// sempre que tiver um campo select box, colocar o onChange do campo como handleChance
+		
+	const [currency, setCurrency] = React.useState('EUR');
 	const handleChange = (event) => {
-		setCategoria(event.target.value);
-	};
-	// sempre que tiver um campo select box, criar um objeto com as opções (colocar o nome do campo no plural pra ficar mais fácil de visualizar)
-	const categorias = [
+		setCurrency(event.target.value);
+	  };
+	
+	const currencies = [
 		{
-			value: 'Lanche',
-			label: 'Lanche',
+			value: 'Débito',
+			label: 'Débito',
 		},
 		{
-			value: 'Pizza',
-			label: 'Pizza',
+			value: 'Crédito',
+			label: 'Crédito',
 		},
 		{
-			value: 'Bebida',
-			label: 'Bebida',
+			value: 'À Vista',
+			label: 'À Vista',
 		},
 	];
 
-	function cadastrar() {
-		try {
-			firebase.database().ref('/Cardapio').push({
-				nome: nome,
-				descricao: descricao,
-				valor: valor,
-				categoria: categoria,
-			})
-		} catch (error) {
-			alert(error)
-		} finally {
-			setNome('')
-			setValor('')
-			setDescricao('')
-			setCategoria('')
-		}
-	}
+	
 
 	return (
 		<ThemeProvider theme={mdTheme}>
@@ -204,116 +190,63 @@ function DashboardContent() {
 				>
 					<Toolbar />
 					<Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+
 						<Grid container spacing={3}>
 							<Grid item sm={12}>
 								<Paper
 									style={{
 										marginLeft: 150,
 										marginTop: 50,
+                                        height: 250,
 									}}>
 
-									<h2 style={{
+                                        <h2 style={{
 										marginTop: 10,
 										marginBottom: 50,
 										display: "flex",
 										justifyContent: "center",
-									}}>Cadastrar Item do Cardápio</h2>
+									}}>Registrar Pagamento</h2>
 
-									<Grid container spacing={3}
+                                    <h3 style={{
+										marginTop: 10,
+										marginBottom: 50,
+										display: "flex",
+										justifyContent: "center",
+									}}>Comanda Fechada</h3>
+                                <Grid container spacing={5}
 										style={{
 											display: "flex",
 											justifyContent: "center",
-											paddingLeft: 15,
+											marginLeft: -40,
 											paddingRight: 15,
 										}}>
+											
+										<Grid item xs={3}>
+											<TextField
+												id="idEstabelecimento"
+												name="IDComanda"
+												label="Número da Comanda"
+												defaultValue="001"
+												size="small"
+												InputProps={{
+													readOnly: true,
+												}} />
+										</Grid>
 
-										<Grid item xs={12}>
+                                        <Grid item xs={3}>
 											<TextField
-												required
-												id="nome"
-												name="nome"
-												label="Nome"
+												id="idEstabelecimento"
+												name="IDComanda"
+												label="Forma de Pagamento"
+												defaultValue="Débito"
 												size="small"
-												value={nome}
-												onChange={e => {
-													setNome(e.target.value);
-												}}
-												fullWidth
-												autoComplete="given-name"
-											/>
+												InputProps={{
+													readOnly: true,
+												}} />
 										</Grid>
-										<Grid item xs={6}>
-											<TextField
-												required
-												id="valor"
-												name="valor"
-												label="Valor"
-												size="small"
-												type="number"
-												value={valor}
-												onChange={e => {
-													setValor(e.target.value);
-												}}	
-												fullWidth
-												autoComplete="family-name"
-											/>
-										</Grid>
-										<Grid item xs={6}>
-											<TextField
-												required
-												style={{ width: 200 }}
-												id="outlined-select-currency"
-												select
-												name="categoria"
-												label="Categoria"
-												value={categoria}
-												onChange={handleChange}
-												size="small"
-											>
-												{categorias.map((option) => (
-													<MenuItem key={option.value} value={option.value}>
-														{option.label}
-													</MenuItem>
-												))}
-											</TextField>
-										</Grid>
-										<Grid item xs={12}>
-											<TextField
-												required
-												id="descricao"
-												name="descricao"
-												label="Descrição"
-												value={descricao}
-												onChange={e => {
-													setDescricao(e.target.value);
-												}}
-												size="small"
-												fullWidth
-												autoComplete="family-name"
-											/>
-										</Grid>
-										<Grid item xs={12}>
-											<label htmlFor="contained-button-file">
-												<Input accept="image/*" id="contained-button-file" multiple type="file" />
-											</label>
-										</Grid>
-									</Grid>
-									<Grid
-										style={{
-											marginTop: 20,
-											paddingBottom: 20,
-											display: "flex",
-											justifyContent: "space-around",
-										}}>
-										<Button variant="contained" color="error"
-											style={{
-												marginTop: 25,
-											}}>Cancelar</Button>
-										<Button variant="contained" color="success" onClick={cadastrar}
-											style={{
-												marginTop: 25,
-											}}>Cadastrar</Button>
-									</Grid>
+                                        </Grid>  
+
+                                             
 								</Paper>
 							</Grid>
 						</Grid>
@@ -327,3 +260,5 @@ function DashboardContent() {
 export default function Dashboard() {
 	return <DashboardContent />;
 }
+
+
