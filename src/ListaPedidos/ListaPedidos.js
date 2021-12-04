@@ -151,7 +151,7 @@ function DashboardContent() {
     function updateStatus(status) {
         try {
             const array = []
-            firebase.database().ref('/Comandas/-Mq2yTsb7anjxhtoMbIO/itens/')
+            firebase.database().ref('/Comandas/-Mq3c0On-XX6ieTS63gt/itens/')
                 .on('value', (snapshot) => {
                     snapshot.forEach((childItem) => {
                         array.push(childItem.key)
@@ -159,7 +159,7 @@ function DashboardContent() {
                     console.log(array)
                 })
             array.map(key => {
-                firebase.database().ref('/Comandas/-Mq2yTsb7anjxhtoMbIO/itens/' + key)
+                firebase.database().ref('/Comandas/-Mq3c0On-XX6ieTS63gt/itens/' + key)
                     .update({
                         status: status
                     })
@@ -278,10 +278,6 @@ function DashboardContent() {
                                                 <SearchIcon />
                                             </IconButton>
                                         </Paper>
-                                        <Button variant="contained" color="primary" onClick={() => { teste() }}
-                                            style={{
-                                                marginLeft: 350,
-                                            }}>teste</Button>
                                     </Grid>
 
 
