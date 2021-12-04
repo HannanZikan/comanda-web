@@ -108,53 +108,74 @@ function DashboardContent() {
     const toggleDrawer = () => {
         setOpen(!open);
     };
-    const [rows, setRows] = useState([]);
+    const [rows, setRows] = useState([])
+    const [comanda, setComanda] = useState([])
     const [listaPedidos, setListaPedidos] = useState([])
+
     useEffect(() => {
         try {
+
+            const list = []
+            const getComanda = firebase.database().ref('/Comandas')
+                .orderByChild('usuario').equalTo('xZymKpGmLbQvdkjoFeTY10DUjfH3')
+                .on('value', (snapshot) => {
+                    snapshot.forEach((childItem) => {
+                        list.push({
+                            cliente: childItem.val().cliente,
+                            mesa: childItem.val().mesa,
+                        })
+                    })
+                    setComanda(list)
+                })
+
             const getItensComanda = firebase.database().ref('/Comandas/-Mpy4hwF4bqXvLh4cird/itens')
+                .orderByChild('status').startAt(1).endAt(2)
                 .on('value', (snapshot) => {
                     const pedidos = []
                     snapshot.forEach((childItem) => {
                         pedidos.push({
+                            key: childItem.key,
                             nome: childItem.val().nome,
                             quantidade: childItem.val().quantidade,
                             observacao: childItem.val().observacao,
+                            status: childItem.val().status,
                         })
                     })
                     setRows(pedidos)
                 })
+
         } catch (error) {
             alert(error);
         }
     }, [])
 
-
-    function createData(itens, comentarios, quantidade) {
-        return [itens, comentarios, quantidade]
-    }
-
-    const rows2 = [
-        {
-            nome: "cuba libre",
-            observacao: "sem gelo",
-            quantidade: 1,
-        },
-        {
-            nome: "coca lata",
-            observacao: "com gelo",
-            quantidade: 1,
-        },
-    ];
-
-
     function teste() {
-        rows.forEach(function (array) {
+        comanda.forEach(function (array) {
             return console.log(array)
         })
-        // rows2.forEach(function (array) {
-        //     return console.log(array)
-        // })
+    }
+
+    function updateStatus(status) {
+        try {
+            rows.forEach(function (array) {
+                if (array.status == 1) {
+                    firebase.database().ref('/Comandas/-Mpy4hwF4bqXvLh4cird/itens/' + array.key)
+                        .update({
+                            status: status
+                        })
+                    alert("O pedido está sendo preparado")
+                }
+                if (array.status == 2) {
+                    firebase.database().ref('/Comandas/-Mpy4hwF4bqXvLh4cird/itens/' + array.key)
+                        .update({
+                            status: status
+                        })
+                    alert("O pedido será entregue")
+                }
+            })
+        } catch (error) {
+            alert(error)
+        }
     }
 
     return (
@@ -262,6 +283,10 @@ function DashboardContent() {
                                                 <SearchIcon />
                                             </IconButton>
                                         </Paper>
+                                        <Button variant="contained" color="primary" onClick={()=>{teste()}}
+											style={{
+												marginLeft: 350,
+											}}>teste</Button>
                                     </Grid>
 
 
@@ -292,7 +317,12 @@ function DashboardContent() {
                                                     <TableCell component="th" scope="row" align="left">
                                                         {rows.shortId}
                                                     </TableCell>
-                                                    <TableCell align="left">Carlos Alberto</TableCell>
+                                                    <TableCell align="left">
+                                                        {comanda.cliente}
+                                                        {/* {comanda.map(function (array) {
+                                                            return array.cliente
+                                                        })} */}
+                                                    </TableCell>
                                                     <TableCell align="left">
                                                         <List>
                                                             {rows.map(function (array) {
@@ -326,17 +356,28 @@ function DashboardContent() {
                                                             })}
                                                         </List>
                                                     </TableCell>
-                                                    <TableCell align="left">0001</TableCell>
+                                                    <TableCell align="left">
+                                                        {comanda.map(function (array) {
+                                                            return array.mesa
+                                                        })}
+                                                    </TableCell>
                                                     <TableCell align="left">
                                                         <List>
                                                             <ListItem disablePadding>
-                                                                <Button variant="contained" onClick color="primary" style={{ marginBottom: 5 }}>Preparar</Button>
+                                                                <Button variant="contained"
+                                                                    color="primary"
+                                                                    onClick={() => {
+                                                                        updateStatus(2)
+                                                                    }}
+                                                                    style={{ marginBottom: 5 }}>
+                                                                    Preparar
+                                                                </Button>
                                                             </ListItem>
                                                             <ListItem disablePadding>
                                                                 <Button
                                                                     variant="contained"
                                                                     onClick={() => {
-                                                                        teste()
+                                                                        updateStatus(3)
                                                                     }}
                                                                     color="success">
                                                                     Entregar
